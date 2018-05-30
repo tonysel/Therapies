@@ -1,4 +1,100 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Dosaggio" representedClassName=".Dosaggio" syncable="YES">
+        <attribute name="giorno" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="qta" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Images" representedClassName=".Images" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MedicinaleCore" representedClassName=".MedicinaleCore" syncable="YES">
+        <attribute name="cod" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dosaggioFisso" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="misuraDosaggio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="dosaggioVaria" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="Dosaggio" syncable="YES"/>
+    </entity>
+    <entity name="MedicinaleWithTimeCore" representedClassName=".MedicinaleWithTimeCore" syncable="YES">
+        <attribute name="codiceMed" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codiceTer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dosaggio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="orario" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quando" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="raccomandazioni" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ripetizioni" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="tipoOrario" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ultimaModifica" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="MedicoCore" representedClassName=".MedicoCore" syncable="YES">
+        <attribute name="codice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cognome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recapitoTelefonico" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="OrarioApprossimato" representedClassName=".OrarioApprossimato" syncable="YES">
+        <attribute name="pranzo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quando" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="OrarioEsatto" representedClassName=".OrarioEsatto" syncable="YES">
+        <attribute name="orario" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="PazienteCore" representedClassName=".PazienteCore" syncable="YES">
+        <attribute name="codiceFiscale" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cognome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prossimoControllo" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="ultimaModifica" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="medicoControllo" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="MedicoCore" syncable="YES"/>
+        <relationship name="terapieFarmacologiche" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="TerapiaFarmacologicaCore" syncable="YES"/>
+        <relationship name="terapieNonFarmacologiche" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="TerapiaNonFarmacologicaCore" syncable="YES"/>
+    </entity>
+    <entity name="TerapiaFarmacologicaCore" representedClassName=".TerapiaFarmacologicaCore" syncable="YES">
+        <attribute name="cadenza" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="orarioLibero" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="raccomandazioni" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tipoOrario" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="medicinali" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="MedicinaleCore" syncable="YES"/>
+        <relationship name="orariApprossimati" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="OrarioApprossimato" syncable="YES"/>
+        <relationship name="orariEsatti" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="OrarioEsatto" syncable="YES"/>
+    </entity>
+    <entity name="TerapiaNonFarmacologicaCore" representedClassName=".TerapiaNonFarmacologicaCore" syncable="YES">
+        <attribute name="cadenza" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="orarioLibero" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="raccomandazioni" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tipoOrario" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="orariApprossimati" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="OrarioApprossimato" syncable="YES"/>
+        <relationship name="orariEsatti" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="OrarioEsatto" syncable="YES"/>
+    </entity>
+    <entity name="TerapiaNonFarmacologicaWithTimeCore" representedClassName=".TerapiaNonFarmacologicaWithTimeCore" syncable="YES">
+        <attribute name="codiceTer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="orario" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quando" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="raccomandazioni" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ripetizioni" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Dosaggio" positionX="-162" positionY="-117" width="128" height="75"/>
+        <element name="Images" positionX="-162" positionY="-117" width="128" height="75"/>
+        <element name="MedicinaleCore" positionX="-54" positionY="54" width="128" height="135"/>
+        <element name="MedicoCore" positionX="-153" positionY="-270" width="128" height="105"/>
+        <element name="OrarioApprossimato" positionX="-144" positionY="-99" width="128" height="75"/>
+        <element name="OrarioEsatto" positionX="106" positionY="-252" width="128" height="60"/>
+        <element name="PazienteCore" positionX="-369" positionY="-54" width="128" height="165"/>
+        <element name="TerapiaFarmacologicaCore" positionX="223" positionY="-126" width="128" height="165"/>
+        <element name="TerapiaNonFarmacologicaCore" positionX="-108" positionY="267" width="128" height="165"/>
+        <element name="MedicinaleWithTimeCore" positionX="-162" positionY="-117" width="128" height="225"/>
+        <element name="TerapiaNonFarmacologicaWithTimeCore" positionX="-153" positionY="-108" width="128" height="180"/>
+    </elements>
 </model>
