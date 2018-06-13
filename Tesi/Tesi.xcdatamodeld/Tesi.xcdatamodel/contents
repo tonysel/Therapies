@@ -21,6 +21,7 @@
         <attribute name="codiceTer" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dosaggio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="misuraDosaggio" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="orario" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="quando" optional="YES" attributeType="String" syncable="YES"/>
@@ -82,19 +83,20 @@
         <attribute name="raccomandazioni" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ripetizioni" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="tipoOrario" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
         <element name="Dosaggio" positionX="-162" positionY="-117" width="128" height="75"/>
         <element name="Images" positionX="-162" positionY="-117" width="128" height="75"/>
         <element name="MedicinaleCore" positionX="-54" positionY="54" width="128" height="135"/>
+        <element name="MedicinaleWithTimeCore" positionX="-162" positionY="-117" width="128" height="240"/>
         <element name="MedicoCore" positionX="-153" positionY="-270" width="128" height="105"/>
         <element name="OrarioApprossimato" positionX="-144" positionY="-99" width="128" height="75"/>
         <element name="OrarioEsatto" positionX="106" positionY="-252" width="128" height="60"/>
         <element name="PazienteCore" positionX="-369" positionY="-54" width="128" height="165"/>
         <element name="TerapiaFarmacologicaCore" positionX="223" positionY="-126" width="128" height="165"/>
         <element name="TerapiaNonFarmacologicaCore" positionX="-108" positionY="267" width="128" height="165"/>
-        <element name="MedicinaleWithTimeCore" positionX="-162" positionY="-117" width="128" height="225"/>
-        <element name="TerapiaNonFarmacologicaWithTimeCore" positionX="-153" positionY="-108" width="128" height="180"/>
+        <element name="TerapiaNonFarmacologicaWithTimeCore" positionX="-153" positionY="-108" width="128" height="195"/>
     </elements>
 </model>

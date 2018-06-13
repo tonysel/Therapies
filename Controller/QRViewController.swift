@@ -26,10 +26,14 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     //@IBOutlet weak var bottomLabel: UILabel!
      @IBOutlet weak var bottomView: UIView!
     
+    @IBOutlet weak var topView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.dismiss(animated: true, completion: nil)
+        
+        self.bottomView.backgroundColor = .clear
+        self.topView.backgroundColor = .clear
+
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
@@ -78,18 +82,12 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         previewLayer.videoGravity = .resizeAspectFill
         
         view.layer.addSublayer(previewLayer)
-      
-//        previewLayer.addSublayer(view.layer)
         
-//        view.layer.insertSublayer(previewLayer, at:1)
+        view.layer.addSublayer(bottomView.layer)
         
-//        view.layer.insertSublayer(bottomView.layer, at: 1)
-//
-//        view.layer.insertSublayer(backButton.layer, at: 1)
+        view.layer.addSublayer(topView.layer)
         
         captureSession.startRunning()
-        
-  //      view.bringSubview(toFront: messageLabel)
         
         if let qrCodeFrameView = qrCodeFrameView {
             qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
@@ -167,7 +165,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
                             
                             //va alla main view dove si trovano tutte le features
                             self.performSegue(withIdentifier: "mainSegue", sender: nil)
-                            
+
                             
                         case .cancel:
                             print("cancel")
@@ -200,9 +198,24 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
                 }
              }
             else{
-                self.viewDidLoad()
+                let ac = UIAlertController(title: "Attention", message: "QRCode non valido", preferredStyle: .alert)
+                
+                // add the actions (buttons)
+                ac.addAction(UIAlertAction(title: "Continue", style:.default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        self.viewDidLoad()
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    }
+                }))
+              
+                // show the alert
+                self.present(ac, animated: true, completion: nil)
             }
-        }
+            }
         }
         else{
             

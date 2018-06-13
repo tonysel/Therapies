@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Firebase
 import AVFoundation
-
+import NotificationCenter
 import UserNotifications
 import FirebaseInstanceID
 import FirebaseMessaging
@@ -25,39 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     var qrCode : String?
     
+    let fbManager = FBManager()
+    
+    var audioPlayer: AVAudioPlayer?
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
     }
-    
-//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-//
-//        // Setting up the class that will handle all the notifications
-//        let notificationCenter = UNUserNotificationCenter.current()
-//        notificationCenter.delegate = NotificationCenterManager.shared
-//
-//        // Request authorization to display notifications
-//        NotificationCenterManager.shared.requestAuthorizationForNotifications()
-//
-//        // Register with APNs
-////        self.registerForPushNotifications(application)
-//
-//        self.registerTherapiesRemindersNotificationActions()
-//
-//        // Manage the case the app is launched from notification
-//        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
-//            // Code the desired actions
-//            let aps = notification["aps"] as! [String: AnyObject]
-//            if aps["content-available"] as? Int == 1 {
-//                if aps["category"] as? String == "newCoffeeTipNotification" {
-//                    _ =  APIManager.shared.makeTip(notification)
-//                } else if aps["category"] as? String == "newCoffeeDealNotification" {
-//                    _ =  APIManager.shared.makeDeal(notification)
-//                    (window?.rootViewController as? UITabBarController)?.selectedIndex = 2
-//                }
-//            }
-//        }
-//        return true
-//    }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -73,11 +47,93 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
         
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (authorized:Bool, error:Error?) in
+            if !authorized {
+                print("App is useless because you did not allow notifications.")
+            }
+        }
         
-         UNUserNotificationCenter.current().delegate = self
+        // Define Actions
+//        let doneAction = UNNotificationAction(identifier: "done", title: "Done", options: [])
+        let sosAction = UNNotificationAction(identifier: "sos", title: "SOS", options: [])
         
-//         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        // Add actions
+        let category = UNNotificationCategory(identifier: "actionCategory", actions: [sosAction], intentIdentifiers: [], options: [])
         
+        // Add the category to Notification Framework
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+//        self.scheduleNotification()
+        
+//        var n : NewNotificationManager?
+//
+//        if UserDefaults.standard.bool(forKey: "notFirstTime") == true{
+//
+//            n?.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
+//
+//        }
+        
+        if UserDefaults.standard.bool(forKey: "notFirstTime") == true{
+
+            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
+
+        }
+//
+        UNUserNotificationCenter.current().getPendingNotificationRequests{requests -> () in
+            print("\(requests.count) requests -------")
+            for request in requests{
+                print(request.identifier)
+                print(request.trigger)
+            }
+        }
+        
+        return true
+    }
+    
+   
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+//      let fbManager = FBManager()
+        
+//      let medicineItem = MedicinaleWithTimeCore(context: persistentContainer.viewContext)
+
+//      CoreDataController.shared.loadMedicinaleWithOrarioLiberoFromId(id: response.notification.request.identifier)
+        
+//        var strings = response.notification.request.identifier
+        
+        // Significa che è stato premuto SOS
+    
+        if response.actionIdentifier == "sos" {
+            
+            fbManager.aggiungiRichiestaAiuto(medico: (paziente?.getMedicoControllo())!, codice: qrCode!, nota: response.notification.request.identifier)
+            
+        }
+//        else{ // Significa che è stato premuto SOS
+//
+//            fbManager.aggiungiRichiestaAiuto(medico: (paziente?.getMedicoControllo())!, codice: qrCode!, nota: "SOS")
+//
+//        }
+        
+//        self.saveContext()
+//        scheduleNotification()
+        
+        completionHandler()
+        
+    }
+    
+    //serve per ricevere notifiche quando l'app è in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        completionHandler([.alert, .badge, .sound])
+    }
+    
         // Override point for customization after application launch.
         
 //        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
@@ -90,9 +146,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        }))
 //        window?.rootViewController!.present(actionSheet, animated: true, completion: nil)
         
-        return true
-    }
-
+    //AlarmApplicationDelegate protocol
 //    func playSound(_ soundName: String) {
 //
 //        //vibrate phone first
@@ -101,16 +155,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        AudioServicesAddSystemSoundCompletion(SystemSoundID(kSystemSoundID_Vibrate),nil,
 //                                              nil,
 //                                              { (_:SystemSoundID, _:UnsafeMutableRawPointer?) -> Void in
-//                                                print("callback", terminator: "") //todo
+//                                                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 //        },
 //                                              nil)
-//        let url = URL(
-//            fileURLWithPath: Bundle.main.path(forResource: soundName, ofType: "mp3")!)
+//        let url = URL(fileURLWithPath: Bundle.main.path(forResource: soundName, ofType: "mp3")!)
 //
 //        var error: NSError?
 //
 //        do {
-//            var audioPlayer = try AVAudioPlayer(contentsOf: url)
+//            audioPlayer = try AVAudioPlayer(contentsOf: url)
 //        } catch let error1 as NSError {
 //            error = error1
 //            audioPlayer = nil
@@ -118,14 +171,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //
 //        if let err = error {
 //            print("audioPlayer error \(err.localizedDescription)")
+//            return
 //        } else {
 //            audioPlayer!.delegate = self
 //            audioPlayer!.prepareToPlay()
 //        }
+//
 //        //negative number means loop infinity
 //        audioPlayer!.numberOfLoops = -1
 //        audioPlayer!.play()
 //    }
+  
 //
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -227,30 +283,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
 }
-
-// MARK: - Register notification actions
-extension AppDelegate {
-    // TODO: Explain what it is
-    func registerTherapiesRemindersNotificationActions() {
-        // 1. Create the actions
-        let doneTherapy =
-            UNNotificationAction(identifier: NotificationActionIdentifier.doneTherapy,
-                                 title: "Done",
-                                 options: [.authenticationRequired])
-        let sos =
-            UNNotificationAction(identifier: NotificationActionIdentifier.sos,
-                                 title: "SOS",
-                                 options: [.authenticationRequired])
-        
-        // 2. Create the category associated with the actions
-        let reminderCategory =
-            UNNotificationCategory(identifier: NotificationCategoryIdentifier.reminder,
-                                   actions: [doneTherapy, sos],
-                                   intentIdentifiers: [],
-                                   options: [])
-        // 3. Register the category in the Notification Center
-        UNUserNotificationCenter.current()
-            .setNotificationCategories([reminderCategory])
-    }
-}
-

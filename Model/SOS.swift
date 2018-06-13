@@ -10,7 +10,7 @@ import UIKit
 
 class SOS{
 
-    private var time: Date
+    public var time: Date
     private var nota: String
     private var visualizzata: Int
     

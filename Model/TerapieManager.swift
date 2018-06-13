@@ -586,6 +586,5 @@ class TerapieManager{
         return dictTerNonFarm
         
     }
-
     
 }

@@ -17,6 +17,7 @@ extension TerapiaNonFarmacologicaWithTimeCore {
     }
 
     @NSManaged public var id: String?
+    @NSManaged public var tipoOrario: String?
     @NSManaged public var time: NSDate?
     @NSManaged public var orario: String?
     @NSManaged public var quando: String?

@@ -502,5 +502,30 @@ public class TraslationManager{
         
         return dateArray
     }
+
+    
+    static func loadDayName(forDate date: Date) -> String{
+        let calendar = Calendar.init(identifier: Calendar.Identifier.gregorian)
+        let weekDay = calendar.component(.weekday, from: date)
+        
+        switch weekDay {
+        case 1:
+            return "Domenica"
+        case 2:
+            return "Lunedi"
+        case 3:
+            return "Martedi"
+        case 4:
+            return "Mercoledi"
+        case 5:
+            return "Giovedi"
+        case 6:
+            return "Venerdi"
+        case 7:
+            return "Sabato"
+        default:
+            return "Nada"
+        }
+    }
    
 }

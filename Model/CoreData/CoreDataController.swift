@@ -10,11 +10,13 @@ import UIKit
 import Foundation
 import CoreData
 
-class CoreDataController {
+class CoreDataController{
 
     static let shared = CoreDataController()
         
     let context : NSManagedObjectContext
+    
+    var delegate: CoreDataControllerDelegate?
         
     public init(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -27,6 +29,7 @@ class CoreDataController {
         let medicinaleWithTimeCore = MedicinaleWithTimeCore(entity: entity!, insertInto: context)
     
         medicinaleWithTimeCore.id = medicineWithTime.getId()
+        medicinaleWithTimeCore.misuraDosaggio = medicineWithTime.getMedicinale().getMisuraDosaggio()
         medicinaleWithTimeCore.tipoOrario = medicineWithTime.getTipoOrario()
         medicinaleWithTimeCore.raccomandazioni = medicineWithTime.getRaccomandazioni()
         medicinaleWithTimeCore.nome = medicineWithTime.getMedicinale().getNome()
@@ -37,7 +40,6 @@ class CoreDataController {
         medicinaleWithTimeCore.dosaggio = medicineWithTime.getDosaggio()!
         medicinaleWithTimeCore.codiceMed = medicineWithTime.getMedicinale().getCodice()
         medicinaleWithTimeCore.codiceTer = medicineWithTime.getCodiceTerapia()
-//        medicinaleWithTimeCore.ripetizioni = Int16(medicineWithTime.getRipetizioni()!)
         medicinaleWithTimeCore.ripetizioni = 1
         do {
             try self.context.save()
@@ -64,6 +66,7 @@ class CoreDataController {
         medicinaleWithTimeCore.codiceMed = medicineWithTime.getMedicinale().getCodice()
         medicinaleWithTimeCore.codiceTer = medicineWithTime.getCodiceTerapia()
         medicinaleWithTimeCore.ripetizioni = CoreDataController.shared.loadMedicinaleWithOrarioLiberoFromId(id: medicineWithTime.getId()!).ripetizioni + Int16(addRipetizione)
+        
         do {
             try self.context.save()
         } catch let errore {
@@ -79,6 +82,7 @@ class CoreDataController {
         let terapiaNonFarmacologicaWithTimeCore = TerapiaNonFarmacologicaWithTimeCore(entity: entity!, insertInto: context)
         
         terapiaNonFarmacologicaWithTimeCore.id = terapiaNonFarmacologicaWithTime.getId()
+        terapiaNonFarmacologicaWithTimeCore.tipoOrario = terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario()
         terapiaNonFarmacologicaWithTimeCore.nome = terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getNome()
         terapiaNonFarmacologicaWithTimeCore.orario = terapiaNonFarmacologicaWithTime.getOrarioApprossimato()
         terapiaNonFarmacologicaWithTimeCore.quando = terapiaNonFarmacologicaWithTime.getQuandoApprossimato()
@@ -303,13 +307,17 @@ class CoreDataController {
         
         let request: NSFetchRequest<Images> = NSFetchRequest(entityName: "Images")
         request.returnsObjectsAsFaults = false
-        
+       
         let predicate = NSPredicate(format: "name = %@", nameImage)
         request.predicate = predicate
-        
+      
         let dataImages = self.loadImagesFromFetchRequest(request: request)
-        
-        return dataImages[0].image! as Data
+        if dataImages.count != 0{
+            return dataImages[0].image! as Data
+        }
+        else{
+            return Data.init()
+        }
     }
     
     func loadMedicinaleWithOrarioLiberoFromId(id: String) -> MedicinaleWithTimeCore {
@@ -339,24 +347,45 @@ class CoreDataController {
     }
     
     func aggiungiRipetizioneMedicinaleWithTimeWithOrarioLibero(medicineWithTime: MedicinaleWithTime){
-       
-        let med = loadMedicinaleWithOrarioLiberoFromId(id: medicineWithTime.getId()!)
-     
-        self.aggiungiMedicinaleWithTimeWithAddRipetizione(medicineWithTime: medicineWithTime, addRipetizione: 1)
         
-        print("GUARDA BENEEEE:  .... \(CoreDataController.shared.loadMedicinaleWithOrarioLiberoFromId(id: medicineWithTime.getId()!).ripetizioni)")
+        let med = self.loadMedicinaleWithOrarioLiberoFromId(id: medicineWithTime.getId()!)
         
-         self.context.delete(med)
+        med.ripetizioni += 1
+        
+        do {
+            try self.context.save()
+
+        } catch let errore {
+           
+            print(" Stampo l'errore: \n \(errore) \n")
+        }
+//        self.context.delete(med)
+//
+//        self.aggiungiMedicinaleWithTimeWithAddRipetizione(medicineWithTime: medicineWithTime, addRipetizione: 1)
+
+//        self.delegate?.onSuccessCore()
+        
     }
     
     func aggiungiRipetizioneTerapiaNonFarmacologicaWithTimeWithOrarioLibero(terapiaNonFarmacologicaWithTime: TerapiaNonFarmacologicaWithTime){
         
         let ter = loadTerNonFarmWithOrarioLiberoFromId(id: terapiaNonFarmacologicaWithTime.getId()!)
         
-        self.aggiungiTerapiaNonFarmacologicaWithTimeWithAddRipetizione(terapiaNonFarmacologicaWithTime: terapiaNonFarmacologicaWithTime, addRipetizione: 1)
+        ter.ripetizioni += 1
         
-        self.context.delete(ter)
+        do {
+            try self.context.save()
+            
+        } catch let errore {
+            
+            print(" Stampo l'errore: \n \(errore) \n")
+        }
         
+//        self.context.delete(ter)
+        
+//        self.aggiungiTerapiaNonFarmacologicaWithTimeWithAddRipetizione(terapiaNonFarmacologicaWithTime: terapiaNonFarmacologicaWithTime, addRipetizione: 1)
+
+//        self.delegate?.onSuccessCore()
     
     }
     
@@ -585,8 +614,7 @@ class CoreDataController {
                     }
                     i = i + 1
                 }
-                print("vedi beneeeeeee \(times)")
-                
+
                 terapiaNonFarm.aggiungiOrarioEsatto(orario: times)
                 
                 for row in terapiaNonFarmCore.orariApprossimati! as! Set<OrarioApprossimato>{
@@ -817,5 +845,9 @@ class CoreDataController {
         self.deleteAllImages()
     }
 
+}
+
+protocol CoreDataControllerDelegate{
+    func onSuccessCore()
 }
 

@@ -24,9 +24,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-        
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0){
             return dictProfile.count
@@ -46,8 +43,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.textLabel?.text = dictClinicalBrief[indexPath.row]
             cell.detailTextLabel?.text = titles[indexPath.row + 3]
         }
-    
-        
         
         return cell
     }
@@ -56,21 +51,39 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 2
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 180, height: 30))
+        let colorBottom = UIColor(red: 52.0/255.0, green: 147.0/255.0, blue: 196.0/255.0, alpha: 0.7)
+        
+        headerView.layer.cornerRadius = 8
+       
+        headerView.backgroundColor = colorBottom
+        
+        let label = UILabel()
+        label.backgroundColor = UIColor.clear
+        label.textColor = .white
+        label.textAlignment = .center
+        label.frame = CGRect(x: self.view.frame.midX - 100, y: 7, width: 200, height: 15)
+        
         if (section == 0){
-            return "About Me"
+            label.text = "About Me"
         }
         else{
-            return "My Clinical Brief"
+            label.text =  "Cartella Clinica Personale"
         }
         
+        headerView.addSubview(label)
+        
+        
+        return headerView
     }
     
     var dictProfile = [Int: String]()
     
     var dictClinicalBrief = [Int : String]()
     
-    var titles = ["Nome", "Cognome", "Codice Fiscale", "Ultima Modifica Terapia", "Prossimo Controllo"]
+    var titles = ["Nome", "Cognome", "Codice Fiscale", "Medico Controllo", "Ultima Modifica Terapia", "Prossimo Controllo"]
     
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
 
@@ -84,7 +97,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         UserDefaults.standard.set(false, forKey: "notFirstTime")
         self.dismiss(animated: true, completion: nil)
         
-        let vc = storyboard?.instantiateViewController(withIdentifier: "qrCodeController")
+        let vc = storyboard?.instantiateViewController(withIdentifier: "PageControl")
 //        navigationController?.pushViewController(vc!, animated: true)
 //        navigationController?.popViewController(animated: true)
         self.present(vc!, animated: true, completion: nil)
@@ -113,9 +126,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         
-        dictClinicalBrief[0] = dateFormatter.string(from: (appDelegate?.paziente?.getUltimaModifica())!)
+        dictClinicalBrief[0] = "\(appDelegate?.paziente?.getMedicoControllo().getNome()  ?? "Mario") \(appDelegate?.paziente?.getMedicoControllo().getCognome() ?? "Bianchi")"
         
-        dictClinicalBrief[1] = dateFormatter.string(from: (appDelegate?.paziente?.getProssimoControllo())!)
+        dictClinicalBrief[1] = dateFormatter.string(from: (appDelegate?.paziente?.getUltimaModifica())!)
+            
+        dictClinicalBrief[2] = dateFormatter.string(from: (appDelegate?.paziente?.getProssimoControllo())!)
 
         // Do any additional setup after loading the view.
     }

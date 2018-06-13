@@ -9,10 +9,40 @@
 import UIKit
 
 class PopUpViewController: UIViewController {
+    
+    var delegate : PopUpViewControllerDelegate?
+    
+    @IBOutlet weak var cancelButton: UIButton!
+    
+    public var image = UIImage()
 
+    @IBOutlet weak var imageView: UIImageView!
+    @IBAction func cancelPressed(_ sender: UIButton) {
+        self.removeFromParentViewController()
+//        self.dismiss(animated: true, completion: nil)
+        self.delegate?.onCancel()
+        
+    }
+    
+//    @IBOutlet weak var popUpView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let blur = UIBlurEffectStyle()
+//        self.view.isOpaque = false
+        
+        self.cancelButton.layer.cornerRadius = 8
+        self.imageView.image = self.image
+        self.imageView.layer.shadowColor = UIColor.darkGray.cgColor
+        self.imageView.layer.shadowOpacity = 1
 
+        self.view.layer.cornerRadius = 12
+        
+        self.view.layer.shadowColor = UIColor.darkGray.cgColor
+        self.view.layer.shadowOpacity = 0.4
+        
+//        self.popUpView.layer.shadowColor = UIColor(named: "black")?.cgColor
         // Do any additional setup after loading the view.
     }
 
@@ -32,4 +62,8 @@ class PopUpViewController: UIViewController {
     }
     */
 
+}
+
+protocol PopUpViewControllerDelegate {
+    func onCancel()
 }

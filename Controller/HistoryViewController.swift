@@ -8,14 +8,41 @@
 
 import UIKit
 
-class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PopUpViewControllerDelegate {
+    
+    var popUp : PopUpViewController?
+    
+    @IBOutlet weak var blurView: UIVisualEffectView!
+    
+    func onCancel() {
+
+        self.contentView.willRemoveSubview((popUp?.view)!)
+        self.popUp?.dismiss(animated: true, completion: nil)
+        self.contentView.isHidden = true
+        self.blurView.isHidden = true
+    }
 
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setGradientBackground()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func setGradientBackground() {
+        let colorTop =  UIColor(red: 48.0/255.0, green: 210.0/255.0, blue: 190.0/255.0, alpha: 0.7).cgColor
+        let colorBottom = UIColor(red: 52.0/255.0, green: 147.0/255.0, blue: 196.0/255.0, alpha: 0.7).cgColor
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [ colorTop, colorBottom]
+        gradientLayer.locations = [ 0.0, 0.83]
+        gradientLayer.frame = self.view.bounds
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,30 +57,175 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func segnmentControlUpload(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0{
             selectedSegment = 1
+            self.tableView.allowsSelection = true
             self.tableView.reloadData()
         }
         else{
             selectedSegment = 2
+            self.tableView.allowsSelection = false
             self.tableView.reloadData()
         }
     }
     
     //Dictionary for terapie farmacologiche
     var arrayTerFarm = [MedicinaleWithTimeCore]()
+    var arrayTerNonFarm = [TerapiaNonFarmacologicaWithTimeCore]()
+    
+    var dictTerFarm = [Int : [MedicinaleWithTimeCore]]()
+    var dictTerNonFarm = [Int : [TerapiaNonFarmacologicaWithTimeCore]]()
+    var datesString = [String]()
     
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+        
+        self.contentView.isHidden = true
+        self.blurView.isHidden = true
+        
+        self.contentView.layer.cornerRadius = 12
+//        self.navigationController?.navigationItem.largeTitleDisplayMode = .never
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        arrayTerFarm = CoreDataController.shared.loadAllMedicinaliWithTimeCore()
-        self.tableView.reloadData()
+        
+        DispatchQueue.main.async {
+            self.arrayTerFarm = CoreDataController.shared.loadAllMedicinaliWithTimeCore()
+            self.arrayTerNonFarm = CoreDataController.shared.loadAllTerapieNonFarmacologicheWithTimeCore()
+
+//            ///////////////////////
+            var row = 0
+            
+            var rowTerNonFarm = 0
+            
+            for i in self.arrayTerFarm{
+                var temp = [MedicinaleWithTimeCore]()
+                var tempString = String()
+                for j in self.arrayTerFarm{
+                    let dateFormatter = DateFormatter.init()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let stringDate = dateFormatter.string(from: i.time! as Date)
+                    let stringDate2 = dateFormatter.string(from: j.time! as Date)
+//                    print("GUARDA: \(stringDate)-\(row)::::::\(stringDate2)-\(row)")
+                    if (stringDate == stringDate2 && !self.datesString.contains(stringDate)){
+                        temp.append(j)
+                        tempString = stringDate
+                    }
+                }
+                if temp.count != 0{
+                    self.dictTerFarm[row] = temp
+                    temp.removeAll()
+                    self.datesString.append(tempString)
+//                    print(self.datesString)
+                    row += 1
+                }
+            }
+            
+            self.datesString.removeAll()
+            
+            for i in self.arrayTerNonFarm{
+                var temp = [TerapiaNonFarmacologicaWithTimeCore]()
+                var tempString = String()
+                for j in self.arrayTerNonFarm{
+                    let dateFormatter = DateFormatter.init()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let stringDate = dateFormatter.string(from: i.time! as Date)
+                    let stringDate2 = dateFormatter.string(from: j.time! as Date)
+//                    print("GUARDA: \(stringDate)-\(row)::::::\(stringDate2)-\(row)")
+                    if (stringDate == stringDate2 && !self.datesString.contains(stringDate)){
+                        temp.append(j)
+                        tempString = stringDate
+                    }
+                }
+                if temp.count != 0{
+                    self.dictTerNonFarm[rowTerNonFarm] = temp
+                    temp.removeAll()
+                    self.datesString.append(tempString)
+//                    print(self.datesString)
+                    rowTerNonFarm += 1
+                }
+            }
+
+            var matrixTerFarm = [[MedicinaleWithTimeCore]]()
+            var matrixTerNonFarm = [[TerapiaNonFarmacologicaWithTimeCore]]()
+            
+            for (_, value) in self.dictTerFarm{
+                matrixTerFarm.append(value)
+            }
+            
+            for (_, value) in self.dictTerNonFarm{
+                matrixTerNonFarm.append(value)
+            }
+            
+            self.dictTerFarm.removeAll()
+            self.dictTerNonFarm.removeAll()
+            
+            matrixTerFarm = matrixTerFarm.sorted {
+                (med1, med2) -> Bool in
+                return (med1[0].time! as Date) > (med2[0].time! as Date)
+            }
+            
+            matrixTerNonFarm = matrixTerNonFarm.sorted {
+                (ter1, ter2) -> Bool in
+                return (ter1[0].time! as Date) > (ter2[0].time! as Date)
+            }
+            var i = 0
+            for row in matrixTerFarm{
+                self.dictTerFarm[i] = row
+                i += 1
+            }
+            
+            i = 0
+            
+            for row in matrixTerNonFarm{
+                self.dictTerNonFarm[i] = row
+                i += 1
+            }
+            
+//            for (key, value) in self.dictTerFarm{
+//                let med = value.sorted {
+//                    (med1, med2) -> Bool in
+//                    return (med1.time! as Date) < (med2.time! as Date)
+//                }
+//                tempDict[key] = med
+//            }
+//
+//            self.dictTerFarm = tempDict
+//
+//            for (key, value) in self.dictTerNonFarm{
+//                let ter = value.sorted {
+//                    (ter1, ter2) -> Bool in
+//                    return (ter1.time! as Date) < (ter2.time! as Date)
+//                }
+//                tempDict2[key] = ter
+//            }
+//
+//            self.dictTerNonFarm = tempDict2
+            
+//            //////////////////////////////
+            self.tableView.reloadData()
+        }
+//        
+//         self.tableView.reloadData()
+
+      
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        dictTerFarm.removeAll()
+        arrayTerFarm.removeAll()
+        arrayTerNonFarm.removeAll()
+        datesString.removeAll()
+    }
 
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if selectedSegment == 1{
+            return dictTerFarm.count
+        }
+            
+        else {
+            
+            return dictTerNonFarm.count
+            
+        }
     }
     
     
@@ -75,7 +247,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if selectedSegment == 1{
             
-            let medicinaleWithTime = arrayTerFarm[indexPath.row]
+            let medicinaleWithTime = dictTerFarm[indexPath.section]![indexPath.row]
             
             cell.nameMedicine.text = medicinaleWithTime.nome
             
@@ -85,43 +257,82 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             if medicinaleWithTime.tipoOrario == "orario_esatto"{
                 cell.timeLab.text = dateFormatter.string(from: (medicinaleWithTime.time! as Date))
                 cell.ripMedicine.text = ""
+                
             }
             else if medicinaleWithTime.tipoOrario == "orario_libero"{
                 cell.timeLab.text = "Orario libero"
-                cell.ripMedicine.text = "Ripetizioni: \(medicinaleWithTime.ripetizioni)"
+                cell.ripMedicine.text = "Ripetizioni effettuate: \(medicinaleWithTime.ripetizioni)"
             }
             else{
-                cell.timeLab.text = "\(medicinaleWithTime.orario ?? "nil")-\(medicinaleWithTime.quando ?? "nil")"
+                cell.timeLab.text = "\(medicinaleWithTime.orario ?? "nil") \(medicinaleWithTime.quando ?? "nil")"
                 cell.ripMedicine.text = ""
             }
-            cell.qtaMedicine.text = "\(medicinaleWithTime.dosaggio )"
+            cell.qtaMedicine.text = "\(medicinaleWithTime.dosaggio) \(medicinaleWithTime.misuraDosaggio ?? "pillole")"
+            cell.imageCell.image = UIImage(data: CoreDataController.shared.loadImageFromName(nameImage: medicinaleWithTime.nome!))
+            cell.imageCell.layer.shadowColor = UIColor.black.cgColor
+            cell.imageCell.layer.shadowOpacity = 1
             
             cell.qtaMedicine.isHidden = false
         }
             
         else if selectedSegment == 2{
             
-//            let terapiaNonFarmacologicaWithTime = dictTerNonFarm[indexPath.section]![indexPath.row]
-//
-//            cell.nameMedicine.text = terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getNome()
-//
-//            let dateFormatter = DateFormatter.init()
-//            dateFormatter.dateFormat = "HH:mm"
-//            if terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_esatto"{
-//                cell.timeLab.text = dateFormatter.string(from: (terapiaNonFarmacologicaWithTime.getTime()!))
-//                cell.qtaMedicine.text = ""
-//            }
-//            else if terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_libero"{
-//                cell.timeLab.text = "Orario libero"
-//                cell.qtaMedicine.text = "Ripetizioni: \(terapiaNonFarmacologicaWithTime.getRipetizioni() ?? 0)"
-//            }
-//            else{
-//                cell.timeLab.text = "\(terapiaNonFarmacologicaWithTime.getOrarioApprossimato() ?? "nil")-\(terapiaNonFarmacologicaWithTime.getQuandoApprossimato() ?? "nil")"
-//                cell.qtaMedicine.text = ""
-//            }
-//            cell.ripMedicine.isHidden = true
-//        }
+            let terNonFarmWithTime = dictTerNonFarm[indexPath.section]![indexPath.row]
             
+            cell.nameMedicine.text = terNonFarmWithTime.nome
+            
+            let dateFormatter = DateFormatter.init()
+            dateFormatter.dateFormat = "HH:mm"
+            
+            if terNonFarmWithTime.tipoOrario == "orario_esatto"{
+                cell.timeLab.text = dateFormatter.string(from: (terNonFarmWithTime.time! as Date))
+                cell.ripMedicine.text = ""
+                
+            }
+            else if terNonFarmWithTime.tipoOrario == "orario_libero"{
+                cell.timeLab.text = "Orario libero"
+                cell.ripMedicine.text = "Ripetizioni effettuate: \(terNonFarmWithTime.ripetizioni)"
+            }
+            else{
+                cell.timeLab.text = "\(terNonFarmWithTime.orario ?? "nil") \(terNonFarmWithTime.quando ?? "nil")"
+                cell.ripMedicine.text = ""
+            }
+            
+            if terNonFarmWithTime.nome == "Controllo glicemia"{
+                if terNonFarmWithTime.value != 0{
+                    cell.qtaMedicine.text = "\(terNonFarmWithTime.value) mg/dL"
+                    cell.qtaMedicine.isHidden = false
+                }
+                else{
+                    cell.qtaMedicine.isHidden = true
+                }
+                cell.imageCell.image = #imageLiteral(resourceName: "syringe")
+            }
+            
+            else if terNonFarmWithTime.nome == "Controllo peso"{
+                if terNonFarmWithTime.value != 0{
+                    cell.qtaMedicine.text = "\(terNonFarmWithTime.value) Kg"
+                    cell.qtaMedicine.isHidden = false
+                }
+                else{
+                    cell.qtaMedicine.isHidden = true
+                }
+                cell.imageCell.image = #imageLiteral(resourceName: "scale")
+            }
+            
+            else{
+                if terNonFarmWithTime.value != 0{
+                    cell.qtaMedicine.text = "\(terNonFarmWithTime.value)"
+                    cell.qtaMedicine.isHidden = false
+                }
+                else{
+                    cell.qtaMedicine.isHidden = true
+                }
+                cell.imageCell.image = #imageLiteral(resourceName: "water")
+            }
+        
+            cell.imageCell.layer.shadowColor = UIColor.black.cgColor
+            cell.imageCell.layer.shadowOpacity = 1
         }
         return cell
         
@@ -130,46 +341,114 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if selectedSegment == 1{
-            return arrayTerFarm.count
-        }
-            
+            return dictTerFarm[section]!.count
+//            return arrayTerFarm.count
+    }
+
         else {
-            return arrayTerFarm.count
+            return dictTerNonFarm[section]!.count
+//            return arrayTerNonFarm.count
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 180, height: 30))
+        let colorBottom = UIColor(red: 52.0/255.0, green: 147.0/255.0, blue: 196.0/255.0, alpha: 0.7)
+
+        headerView.layer.cornerRadius = 8
+
+        headerView.backgroundColor = colorBottom
+
+        let label = UILabel()
+        label.backgroundColor = UIColor.clear
+        label.textColor = .white
+        label.textAlignment = .center
+
+        let dateFormatter = DateFormatter.init()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        var stringDate = String()
+        var stringDay : String?
+        if selectedSegment == 1{
+            stringDay = TraslationManager.loadDayName(forDate: dictTerFarm[section]![0].time! as Date)
+            stringDate = dateFormatter.string(from: dictTerFarm[section]![0].time! as Date)
+        }
+        else {
+            stringDay = TraslationManager.loadDayName(forDate: dictTerNonFarm[section]![0].time! as Date)
+            stringDate = dateFormatter.string(from: dictTerNonFarm[section]![0].time! as Date)
+        }
+        label.frame = CGRect(x: self.view.frame.midX - 100, y: 7, width: 200, height: 15)
+        label.text = "\(stringDay ?? "Nada") \(stringDate)"
+        headerView.addSubview(label)
+        
+        return headerView
+    }
+    
+    @IBOutlet weak var contentView: UIView!
+    
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "specificTherapySegue"{
+//
+////        self.modalViewController?.modalPresentationStyle = .overCurrentContext
+////        self.presentViewController(modalViewController!, animated: true, completion: nil)
+////        self.modalPresentationStyle = .overCurrentContext
+//
+////        self.addChildViewController(UIViewController.I)
+//
+//        if segue.identifier == "specificImageSegue"{
+//
+//            print("cliccato")
+//
 //            let indexPath = self.tableView.indexPathForSelectedRow!
 //            if(selectedSegment == 1){
-//                let vcDestination = segue.destination as! SpecificTherapyViewController
 //
-//                vcDestination.medicineWithTime = self.dictTerFarm[indexPath.section]![indexPath.row] ///////
-//            } else {
-//                let vcDestination = segue.destination as! SpecificTherapyViewController
+////                let popUp = storyboard?.instantiateViewController(withIdentifier: "popUpViewController")
+////                self.addChildViewController(popUp!)
 //
-//                vcDestination.terapiaNonFarmacologicaWithTime = self.dictTerNonFarm[indexPath.section]![indexPath.row] ///////
+//                //make sure that the child view controller's view is the right size
+////                popUp?.view.frame = contentView.bounds
+////                self.contentView.addSubview((popUp?.view)!)
+//                self.contentView.isHidden = false
+//
+//                //you must call this at the end per Apple's documentation
+////                popUp?.didMove(toParentViewController: self)
+//
+//
+//                let vcDestination = segue.destination as! PopUpViewController
+//                vcDestination.image = UIImage(data: CoreDataController.shared.loadImageFromName(nameImage: self.dictTerFarm[indexPath.section]![indexPath.row].nome!))!
 //            }
 //            self.tableView.deselectRow(at: indexPath, animated: true)
 //        }
 //
 //    }
-//
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //        if (selectedSegment == 1){
-    //            self.performSegue(withIdentifier: "specificTherapySegue", sender: tableView)
-    //        }
-    //        else{
-    //            self.performSegue(withIdentifier: "specificTherapySegue", sender: tableView)
-    ////            let alert = UIAlertController(title: "Attention!", message: "You need to login to proceed", preferredStyle: UIAlertControllerStyle.alert)
-    ////            let bottoneOk = UIAlertAction ( title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
-    ////            alert.addAction(bottoneOk)
-    ////            self.present(alert, animated: true, completion: nil)
-    //        }
-    //        self.tableView.deselectRow(at: indexPath, animated: true)
-    //    }
-    //
-    
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            if (selectedSegment == 1){
+                
+                let popUp = storyboard?.instantiateViewController(withIdentifier: "popUpViewController") as! PopUpViewController
+                
+                self.popUp = popUp
+                
+                self.popUp?.delegate = self
+                
+                self.tableView.deselectRow(at: indexPath, animated: true)
+//                popUp.modalPresentationStyle = .formSheet
+                self.popUp?.image = UIImage(data: CoreDataController.shared.loadImageFromName(nameImage: self.dictTerFarm[indexPath.section]![indexPath.row].nome!))!
+                self.addChildViewController(popUp)
+                
+                //make sure that the child view controller's view is the right size
+                self.popUp?.view.frame = contentView.bounds
+
+                self.contentView.addSubview((popUp.view)!)
+                self.blurView.isHidden = false
+                
+                self.contentView.isHidden = false
+                
+                //you must call this at the end per Apple's documentation
+                popUp.didMove(toParentViewController: self)
+            }
+
+        }
+
     // MARK: - Table view delegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

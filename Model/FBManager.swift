@@ -65,15 +65,6 @@ class FBManager{
                     return
                 }
                 
-                
-//                                        //download image
-//                                        let imageRef: StorageReference = Storage.storage().reference()
-//                                        let child = imageRef.child("\(email).png")
-//                                        child.getData(maxSize: INT64_MAX, completion: {data, error in
-//                                            if error != nil {
-//                                                print(error?.localizedDescription as Any)
-
-                
                 let terapiaFarmacologica: TerapiaFarmacologica = TerapiaFarmacologica(codice: codiciTerapie[i - 1], cadenza: cadenza, raccomandazioni: raccomandazioni, tipoOrario: tipo_orario)
                 
                 
@@ -173,7 +164,7 @@ class FBManager{
                                 print("Error fetching q.tà dose varibile - medicinale")
                                 return
                             }
-                            //                            print("dose variabile: \(giornoDoseVariabile):\(qtaDoseVariabile)")
+                            //print("dose variabile: \(giornoDoseVariabile):\(qtaDoseVariabile)")
                             //aggiunge dose variabile
                             //RICORDATI BENE I CAST DI INT E DOUBLE XKE' POTRESTI AVERE PROBLEMI
                             medicine.aggiungiDosaggioVariabile(giornoCambiamento: Int(giornoDoseVariabile)!, dosaggio: Double(qtaDoseVariabile)!)
@@ -314,6 +305,7 @@ class FBManager{
         let ref_specific_patient  = Database.database().reference().ref.child("Pazienti").child(qrCode)
         
         ref_specific_patient.observeSingleEvent(of: .value){ (snap) in
+            //inizio closure
             
             //Fetching node 'Patient' and conversion in Dictionary
             
@@ -371,6 +363,7 @@ class FBManager{
                 print("Error fetching terapie_farmacologiche")
                 return
             }
+            
             
             
             let delimiter = ";"
@@ -434,24 +427,6 @@ class FBManager{
                 if (patient.key as? String == qrCode){
                     
                     founded = true
-                    //                    //
-                    //                    let ref_specific_patient  = Database.database().reference().ref.child("Pazienti").child(qrCode)
-                    //
-                    //
-                    //                    //Fetching node 'Patient' and conversion in Dictionary
-                    //
-                    //                    guard let patient_read = snap.value as? NSDictionary else {
-                    //                        print("Error fetching specific patient")
-                    //                        return
-                    //                    }
-                    //
-                    //
-                    //                    //codiceFiscale
-                    //                    guard let codiceFiscale = (patient_read["codice_fiscale"] as? String) else{
-                    //                        print("Error fetching codice fiscale patient")
-                    //                        return
-                    //                    }
-                    //
                     
                     break
                 }
@@ -546,6 +521,11 @@ class FBManager{
             
             ] as [String : Any]
         
+//        guard  (appDelegate?.isInternetAvailable())! else{
+//            self.delegate?.onFailure()
+//            return
+//        }
+        
         let ref_richieste_aiuto =  Database.database().reference().child("Medici").child(medico.getCodice()).child("richieste_assistenza")
         
         let date = Date()
@@ -554,6 +534,19 @@ class FBManager{
         
         //add richiesta di aiuto on db
         ref_richieste_aiuto.child("\(String(ultimaModificaInt))-\(codice)").setValue(richiestaAiuto_to_add)
+        
+        self.delegate?.onSuccess()
+    }
+    
+    //MEDICO 2.5 RIMUOVI RICHIESTA
+    public func rimuoviRichiestaAiuto(medico: Medico, codice: String, date: Date, completionHandlers:@escaping ()->Void){
+        
+        let ref_richieste_aiuto =  Database.database().reference().child("Medici").child(medico.getCodice()).child("richieste_assistenza")
+        
+        //add richiesta di aiuto on db
+        ref_richieste_aiuto.child("\(String(Int(date.timeIntervalSince1970)))-\(codice)").removeValue()
+    
+        completionHandlers()
     }
     
     //MEDICO 3

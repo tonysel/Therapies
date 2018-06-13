@@ -9,7 +9,7 @@
 import UIKit
 
 class SOSViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
-  
+   
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     var soss : [SOS]?
     var isFinishedLoading = false
@@ -142,6 +142,55 @@ class SOSViewController: UIViewController, UITableViewDataSource, UITableViewDel
             return 0
         }
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let ac = UIAlertController(title: "Attention", message: "Are you sure ?", preferredStyle: .alert)
+            
+            // add the actions (buttons)
+            ac.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                switch action.style{
+                case .default:
+                    
+                    //tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.fbManager.rimuoviRichiestaAiuto(medico: (self.appDelegate?.paziente?.getMedicoControllo())!, codice: (self.appDelegate?.qrCode)!, date: self.soss![indexPath.row].time){
+                        // Delete the row from the data source
+                        self.soss!.remove(at: indexPath.row)
+                        self.tableView.reloadData()
+                    }
+                    
+                case .cancel:
+                    print("cancel")
+                    
+                    
+                case .destructive:
+                    print("destructive")
+                }
+            }))
+            ac.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
+                switch action.style{
+                case .default:
+                   print("default")
+                    
+                case .cancel:
+                    print("cancel")
+                    
+                    
+                case .destructive:
+                    print("destructive")
+                }
+            }))
+            
+            // show the alert
+            self.present(ac, animated: true, completion: nil)
+            
+        }
+            
+        else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
+    
 
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,7 +199,7 @@ class SOSViewController: UIViewController, UITableViewDataSource, UITableViewDel
         cell.textLabel?.text = soss?[indexPath.row].getNota()
         let dateFormatter = DateFormatter.init()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        cell.detailTextLabel?.text = dateFormatter.string(from: (soss?[indexPath.row].getTime())!)
+        cell.detailTextLabel?.text = "\(TraslationManager.loadDayName(forDate: (soss?[indexPath.row].getTime())!)) \(dateFormatter.string(from: (soss?[indexPath.row].getTime())!))"
         
         if soss![indexPath.row].getVisualizzata() == 1{
             cell.accessoryType = .checkmark}

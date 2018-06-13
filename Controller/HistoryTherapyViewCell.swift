@@ -20,9 +20,16 @@ class HistoryTherapyViewCell: UITableViewCell {
     
     @IBOutlet weak var ripMedicine: UILabel!
     
+    @IBOutlet weak var customView: UIView!
+    
+    @IBOutlet weak var imageCell: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        self.customView.layer.cornerRadius = 15
+        self.customView.layer.shadowColor = UIColor.darkGray.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

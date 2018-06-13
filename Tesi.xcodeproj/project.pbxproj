@@ -19,19 +19,15 @@
 		7822BAC02082067F001C3294 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822BABF2082067F001C3294 /* ItemViewController.swift */; };
 		7823D26C2094CE8F00094E35 /* Medicinale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823D26B2094CE8F00094E35 /* Medicinale.swift */; };
 		78318B3E2083924D00536A45 /* RootPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78318B3D2083924D00536A45 /* RootPageViewController.swift */; };
-		7831A2F120B81408007AC336 /* ClockScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7831A2F020B81408007AC336 /* ClockScene.swift */; };
 		7831A2F420BB4261007AC336 /* Images+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7831A2F220BB4261007AC336 /* Images+CoreDataClass.swift */; };
 		7831A2F520BB4261007AC336 /* Images+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7831A2F320BB4261007AC336 /* Images+CoreDataProperties.swift */; };
 		7839938920A8530200DC6D9B /* Medico.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7839938820A8530200DC6D9B /* Medico.swift */; };
 		783EC73C20B4726B009DE07A /* TerapiaNonFarmacologicaWithTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783EC73B20B4726A009DE07A /* TerapiaNonFarmacologicaWithTime.swift */; };
 		783EC73E20B558C8009DE07A /* TerapieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783EC73D20B558C8009DE07A /* TerapieManager.swift */; };
-		7842F1B620B6BA2400240B1B /* NotificationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7842F1B520B6BA2400240B1B /* NotificationTypes.swift */; };
-		7842F1B820B6BAB500240B1B /* NotificationIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7842F1B720B6BAB500240B1B /* NotificationIdentifiers.swift */; };
 		7842F1BA20B7102000240B1B /* SOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7842F1B920B7102000240B1B /* SOS.swift */; };
 		7842F1BC20B717CF00240B1B /* SOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7842F1BB20B717CF00240B1B /* SOSViewController.swift */; };
 		7842F1BE20B7562700240B1B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7842F1BD20B7562700240B1B /* HistoryViewController.swift */; };
 		7842F1C020B7F10900240B1B /* SpecificTherapyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7842F1BF20B7F10900240B1B /* SpecificTherapyViewController.swift */; };
-		7842F1C220B80DA000240B1B /* ClockScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7842F1C120B80DA000240B1B /* ClockScene.sks */; };
 		78467F8F20B0232D00712CDC /* TraslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78467F8E20B0232D00712CDC /* TraslationManager.swift */; };
 		784DEDB120B165A800874624 /* MedicinaleWithTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784DEDB020B165A800874624 /* MedicinaleWithTime.swift */; };
 		785C64AE20ACB30100C3CAB4 /* Dosaggio+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785C649E20ACB2FF00C3CAB4 /* Dosaggio+CoreDataClass.swift */; };
@@ -53,6 +49,7 @@
 		7866F3CD20A6EC980036010E /* MediciDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7866F3CC20A6EC980036010E /* MediciDAO.swift */; };
 		7866F3CF20A786DB0036010E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7866F3CE20A786DB0036010E /* MainViewController.swift */; };
 		7866F3D120A787BD0036010E /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7866F3D020A787BD0036010E /* data.plist */; };
+		7873CB4A20CBFABB00D9A550 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7873CB4920CBFABB00D9A550 /* PopUpViewController.swift */; };
 		7878BDBA20ADCDAA004EA3CF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7878BDB920ADCDAA004EA3CF /* ProfileViewController.swift */; };
 		7878BDBC20AECC20004EA3CF /* TherapyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7878BDBB20AECC20004EA3CF /* TherapyViewCell.swift */; };
 		7878BDBE20B00468004EA3CF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7878BDBD20B00468004EA3CF /* NotificationManager.swift */; };
@@ -63,11 +60,13 @@
 		787D02D220BD62EB00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D02D020BD62EB00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */; };
 		787D02D420BE96D200BC8F77 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D02D320BE96D200BC8F77 /* SweetAlert.swift */; };
 		789AF8AE20A9E2A900DBF0FF /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789AF8AD20A9E2A900DBF0FF /* CoreDataController.swift */; };
+		78A3A7BE20C3F8E700F4EF70 /* CreateSOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A3A7BD20C3F8E700F4EF70 /* CreateSOSViewController.swift */; };
 		78CF031B2090E4D0003A28C0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 78CF031A2090E4D0003A28C0 /* GoogleService-Info.plist */; };
 		78E28D2F20A1F5DC006D6E4C /* FBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E28D2E20A1F5DC006D6E4C /* FBManager.swift */; };
 		78E28D3120A1F7A0006D6E4C /* Terapia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E28D3020A1F7A0006D6E4C /* Terapia.swift */; };
 		78E28D3320A1FE47006D6E4C /* TerapiaFarmacologica.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E28D3220A1FE47006D6E4C /* TerapiaFarmacologica.swift */; };
 		78E28D3520A1FE68006D6E4C /* TerapiaNonFarmacologica.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E28D3420A1FE68006D6E4C /* TerapiaNonFarmacologica.swift */; };
+		78FEF0BE20CEFF37000E9F18 /* NewNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FEF0BD20CEFF37000E9F18 /* NewNotificationManager.swift */; };
 		C608B6AFBDD9BC969014B0DC /* Pods_Tesi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EBF3B6C24E1AB4F85375CA /* Pods_Tesi.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,19 +87,15 @@
 		7822BABF2082067F001C3294 /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		7823D26B2094CE8F00094E35 /* Medicinale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medicinale.swift; sourceTree = "<group>"; };
 		78318B3D2083924D00536A45 /* RootPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPageViewController.swift; sourceTree = "<group>"; };
-		7831A2F020B81408007AC336 /* ClockScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockScene.swift; sourceTree = "<group>"; };
 		7831A2F220BB4261007AC336 /* Images+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Images+CoreDataClass.swift"; path = "/Users/tonysellitto/Desktop/slides CHIMICA 2015-2016/Tesi/Model/CoreData/Images+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		7831A2F320BB4261007AC336 /* Images+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Images+CoreDataProperties.swift"; path = "/Users/tonysellitto/Desktop/slides CHIMICA 2015-2016/Tesi/Model/CoreData/Images+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		7839938820A8530200DC6D9B /* Medico.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medico.swift; sourceTree = "<group>"; };
 		783EC73B20B4726A009DE07A /* TerapiaNonFarmacologicaWithTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerapiaNonFarmacologicaWithTime.swift; sourceTree = "<group>"; };
 		783EC73D20B558C8009DE07A /* TerapieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerapieManager.swift; sourceTree = "<group>"; };
-		7842F1B520B6BA2400240B1B /* NotificationTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTypes.swift; sourceTree = "<group>"; };
-		7842F1B720B6BAB500240B1B /* NotificationIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationIdentifiers.swift; sourceTree = "<group>"; };
 		7842F1B920B7102000240B1B /* SOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOS.swift; sourceTree = "<group>"; };
 		7842F1BB20B717CF00240B1B /* SOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSViewController.swift; sourceTree = "<group>"; };
 		7842F1BD20B7562700240B1B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7842F1BF20B7F10900240B1B /* SpecificTherapyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificTherapyViewController.swift; sourceTree = "<group>"; };
-		7842F1C120B80DA000240B1B /* ClockScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ClockScene.sks; sourceTree = "<group>"; };
 		78467F8E20B0232D00712CDC /* TraslationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraslationManager.swift; sourceTree = "<group>"; };
 		784DEDB020B165A800874624 /* MedicinaleWithTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicinaleWithTime.swift; sourceTree = "<group>"; };
 		785C649E20ACB2FF00C3CAB4 /* Dosaggio+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Dosaggio+CoreDataClass.swift"; path = "/Users/tonysellitto/Desktop/slides CHIMICA 2015-2016/Tesi/Model/CoreData/Dosaggio+CoreDataClass.swift"; sourceTree = "<absolute>"; };
@@ -122,6 +117,7 @@
 		7866F3CC20A6EC980036010E /* MediciDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediciDAO.swift; sourceTree = "<group>"; };
 		7866F3CE20A786DB0036010E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7866F3D020A787BD0036010E /* data.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
+		7873CB4920CBFABB00D9A550 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		7878BDB920ADCDAA004EA3CF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7878BDBB20AECC20004EA3CF /* TherapyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapyViewCell.swift; sourceTree = "<group>"; };
 		7878BDBD20B00468004EA3CF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -132,11 +128,13 @@
 		787D02D020BD62EB00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift"; path = "../../TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		787D02D320BE96D200BC8F77 /* SweetAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
 		789AF8AD20A9E2A900DBF0FF /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		78A3A7BD20C3F8E700F4EF70 /* CreateSOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSOSViewController.swift; sourceTree = "<group>"; };
 		78CF031A2090E4D0003A28C0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		78E28D2E20A1F5DC006D6E4C /* FBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBManager.swift; sourceTree = "<group>"; };
 		78E28D3020A1F7A0006D6E4C /* Terapia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terapia.swift; sourceTree = "<group>"; };
 		78E28D3220A1FE47006D6E4C /* TerapiaFarmacologica.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerapiaFarmacologica.swift; sourceTree = "<group>"; };
 		78E28D3420A1FE68006D6E4C /* TerapiaNonFarmacologica.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerapiaNonFarmacologica.swift; sourceTree = "<group>"; };
+		78FEF0BD20CEFF37000E9F18 /* NewNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNotificationManager.swift; sourceTree = "<group>"; };
 		FFC9E680B44028851F872522 /* Pods-Tesi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tesi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tesi/Pods-Tesi.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,9 +213,8 @@
 				784DEDB020B165A800874624 /* MedicinaleWithTime.swift */,
 				783EC73B20B4726A009DE07A /* TerapiaNonFarmacologicaWithTime.swift */,
 				783EC73D20B558C8009DE07A /* TerapieManager.swift */,
-				7842F1B520B6BA2400240B1B /* NotificationTypes.swift */,
-				7842F1B720B6BAB500240B1B /* NotificationIdentifiers.swift */,
 				7842F1B920B7102000240B1B /* SOS.swift */,
+				78FEF0BD20CEFF37000E9F18 /* NewNotificationManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -264,9 +261,9 @@
 				7842F1BB20B717CF00240B1B /* SOSViewController.swift */,
 				7842F1BD20B7562700240B1B /* HistoryViewController.swift */,
 				7842F1BF20B7F10900240B1B /* SpecificTherapyViewController.swift */,
-				7842F1C120B80DA000240B1B /* ClockScene.sks */,
-				7831A2F020B81408007AC336 /* ClockScene.swift */,
 				787D02C920BD50A300BC8F77 /* HistoryTherapyViewCell.swift */,
+				78A3A7BD20C3F8E700F4EF70 /* CreateSOSViewController.swift */,
+				7873CB4920CBFABB00D9A550 /* PopUpViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -343,7 +340,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7822BAB620820613001C3294 /* LaunchScreen.storyboard in Resources */,
-				7842F1C220B80DA000240B1B /* ClockScene.sks in Resources */,
 				78CF031B2090E4D0003A28C0 /* GoogleService-Info.plist in Resources */,
 				7822BAB320820613001C3294 /* Assets.xcassets in Resources */,
 				7866F3D120A787BD0036010E /* data.plist in Resources */,
@@ -422,6 +418,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78A3A7BE20C3F8E700F4EF70 /* CreateSOSViewController.swift in Sources */,
 				7822BAAB20820613001C3294 /* QRViewController.swift in Sources */,
 				7831A2F520BB4261007AC336 /* Images+CoreDataProperties.swift in Sources */,
 				785C64AF20ACB30100C3CAB4 /* TerapiaNonFarmacologicaCore+CoreDataClass.swift in Sources */,
@@ -455,19 +452,17 @@
 				7878BDBC20AECC20004EA3CF /* TherapyViewCell.swift in Sources */,
 				785C64B920ACB30100C3CAB4 /* MedicoCore+CoreDataClass.swift in Sources */,
 				785C64B120ACB30100C3CAB4 /* MedicinaleCore+CoreDataProperties.swift in Sources */,
-				7831A2F120B81408007AC336 /* ClockScene.swift in Sources */,
 				78034BC820A57878005D6EBE /* Paziente.swift in Sources */,
 				7878BDBA20ADCDAA004EA3CF /* ProfileViewController.swift in Sources */,
 				78467F8F20B0232D00712CDC /* TraslationManager.swift in Sources */,
-				7842F1B820B6BAB500240B1B /* NotificationIdentifiers.swift in Sources */,
 				7842F1BC20B717CF00240B1B /* SOSViewController.swift in Sources */,
 				785C64AE20ACB30100C3CAB4 /* Dosaggio+CoreDataClass.swift in Sources */,
 				7842F1BE20B7562700240B1B /* HistoryViewController.swift in Sources */,
 				7822BAB120820613001C3294 /* Tesi.xcdatamodeld in Sources */,
 				785C64B020ACB30100C3CAB4 /* MedicinaleCore+CoreDataClass.swift in Sources */,
 				785C64BA20ACB30100C3CAB4 /* OrarioEsatto+CoreDataProperties.swift in Sources */,
+				7873CB4A20CBFABB00D9A550 /* PopUpViewController.swift in Sources */,
 				7878BDBE20B00468004EA3CF /* NotificationManager.swift in Sources */,
-				7842F1B620B6BA2400240B1B /* NotificationTypes.swift in Sources */,
 				787D02D420BE96D200BC8F77 /* SweetAlert.swift in Sources */,
 				783EC73C20B4726B009DE07A /* TerapiaNonFarmacologicaWithTime.swift in Sources */,
 				785C64BD20ACB30100C3CAB4 /* PazienteCore+CoreDataProperties.swift in Sources */,
@@ -476,6 +471,7 @@
 				7842F1C020B7F10900240B1B /* SpecificTherapyViewController.swift in Sources */,
 				7822BABE2082065F001C3294 /* PageViewController.swift in Sources */,
 				78034BCC20A58715005D6EBE /* PazientiDAO.swift in Sources */,
+				78FEF0BE20CEFF37000E9F18 /* NewNotificationManager.swift in Sources */,
 				785C64B720ACB30100C3CAB4 /* OrarioEsatto+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -622,7 +618,7 @@
 				DEVELOPMENT_TEAM = ELMDBN4EGQ;
 				INFOPLIST_FILE = Tesi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sellitto.Tesi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sellitto.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -638,7 +634,7 @@
 				DEVELOPMENT_TEAM = ELMDBN4EGQ;
 				INFOPLIST_FILE = Tesi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sellitto.Tesi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sellitto.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

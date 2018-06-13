@@ -28,5 +28,6 @@ extension MedicinaleWithTimeCore {
     @NSManaged public var ripetizioni: Int16
     @NSManaged public var codiceTer: String?
     @NSManaged public var codiceMed: String?
+    @NSManaged public var misuraDosaggio: String?
 
 }

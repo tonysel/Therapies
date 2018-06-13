@@ -14,9 +14,8 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
     
     var pageViewController : UIPageViewController?
 //    let contentImages = ["gauge","first","second","gauge"]
-    let contentText = ["Benvenuto. L'app utilizza un sistema di allarmi per notificarti sul medicinale da assumere ad una determinata data.",
-                       "Per poter iniziare ad usare l'app è necessario eseguire la scannerizzazione del codice QR che il tuo medico ti ha fornito.",
-                       ]
+    let contentText = ["Benvenuto.\nTherapieSafe ti aiuterà a ricordare le terapie fornite dal tuo medico.", "Quest'ultimo assegna il tuo piano di trattamento e ti fornisce un semplice qrCode personale da scannerizzare.", "Sarai in grado di:\nvedere le terapie da fare entro una settimana e quelle già fatte;\n                           ricevere notifiche;\ninviare un sos silenzioso in qualsiasi momento al proprio medico.", "Inizia scannerizzando il qrCode a te assegnato"]
+    
 //    var backgroundImage : [UIImage?] = [ #imageLiteral(resourceName: "simbols"),#imageLiteral(resourceName: "simbols3"), #imageLiteral(resourceName: "simbols2") , nil ]
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

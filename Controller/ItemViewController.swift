@@ -125,7 +125,9 @@ class ItemViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         
         
         startButton.setTitle(messageStartButton, for: .normal)
-            
+        self.startButton.layer.cornerRadius = 8
+//        self.startButton.layer.borderWidth = 1
+        
         text.text! = label
         text.sizeToFit()
         text.numberOfLines = 0
