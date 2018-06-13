@@ -2,7 +2,7 @@
 //  TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift
 //  
 //
-//  Created by TonySellitto on 29/05/18.
+//  Created by TonySellitto on 28/05/18.
 //
 //
 
@@ -17,7 +17,6 @@ extension TerapiaNonFarmacologicaWithTimeCore {
     }
 
     @NSManaged public var id: String?
-    @NSManaged public var tipoOrario: String?
     @NSManaged public var time: NSDate?
     @NSManaged public var orario: String?
     @NSManaged public var quando: String?
@@ -25,6 +24,6 @@ extension TerapiaNonFarmacologicaWithTimeCore {
     @NSManaged public var nome: String?
     @NSManaged public var raccomandazioni: String?
     @NSManaged public var ripetizioni: Int16
-    @NSManaged public var codiceTer: String?
-
+    @NSManaged public var codiceTer: Int16
+    
 }
