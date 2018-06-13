@@ -9,26 +9,6 @@
 /* Begin PBXBuildFile section */
 		78034BC820A57878005D6EBE /* Paziente.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78034BC720A57878005D6EBE /* Paziente.swift */; };
 		78034BCC20A58715005D6EBE /* PazientiDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78034BCB20A58715005D6EBE /* PazientiDAO.swift */; };
-		7813D62820D11D6E00FE5FC2 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D62020D11D6C00FE5FC2 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift */; };
-		7813D62920D11D6E00FE5FC2 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D62120D11D6C00FE5FC2 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */; };
-		7813D62A20D11D6E00FE5FC2 /* Images+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D62220D11D6D00FE5FC2 /* Images+CoreDataClass.swift */; };
-		7813D62B20D11D6E00FE5FC2 /* Images+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D62320D11D6D00FE5FC2 /* Images+CoreDataProperties.swift */; };
-		7813D62C20D11D6E00FE5FC2 /* TerapiaNonFarmacologicaCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D62420D11D6D00FE5FC2 /* TerapiaNonFarmacologicaCore+CoreDataClass.swift */; };
-		7813D62D20D11D6E00FE5FC2 /* TerapiaNonFarmacologicaCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D62520D11D6D00FE5FC2 /* TerapiaNonFarmacologicaCore+CoreDataProperties.swift */; };
-		7813D62E20D11D6E00FE5FC2 /* TerapiaFarmacologicaCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D62620D11D6D00FE5FC2 /* TerapiaFarmacologicaCore+CoreDataProperties.swift */; };
-		7813D62F20D11D6E00FE5FC2 /* TerapiaFarmacologicaCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D62720D11D6E00FE5FC2 /* TerapiaFarmacologicaCore+CoreDataClass.swift */; };
-		7813D63420D11DB300FE5FC2 /* MedicoCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D63020D11DB200FE5FC2 /* MedicoCore+CoreDataClass.swift */; };
-		7813D63520D11DB300FE5FC2 /* MedicoCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D63120D11DB200FE5FC2 /* MedicoCore+CoreDataProperties.swift */; };
-		7813D63620D11DB300FE5FC2 /* PazienteCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D63220D11DB300FE5FC2 /* PazienteCore+CoreDataProperties.swift */; };
-		7813D63720D11DB300FE5FC2 /* PazienteCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D63320D11DB300FE5FC2 /* PazienteCore+CoreDataClass.swift */; };
-		7813D63C20D11DD500FE5FC2 /* Dosaggio+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D63820D11DD400FE5FC2 /* Dosaggio+CoreDataProperties.swift */; };
-		7813D63D20D11DD500FE5FC2 /* Dosaggio+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D63920D11DD400FE5FC2 /* Dosaggio+CoreDataClass.swift */; };
-		7813D63E20D11DD500FE5FC2 /* OrarioApprossimato+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D63A20D11DD500FE5FC2 /* OrarioApprossimato+CoreDataClass.swift */; };
-		7813D63F20D11DD500FE5FC2 /* OrarioApprossimato+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D63B20D11DD500FE5FC2 /* OrarioApprossimato+CoreDataProperties.swift */; };
-		7813D64220D11E0A00FE5FC2 /* MedicinaleCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D64020D11E0900FE5FC2 /* MedicinaleCore+CoreDataProperties.swift */; };
-		7813D64320D11E0A00FE5FC2 /* MedicinaleCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D64120D11E0900FE5FC2 /* MedicinaleCore+CoreDataClass.swift */; };
-		7813D64620D11E1700FE5FC2 /* OrarioEsatto+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D64420D11E1700FE5FC2 /* OrarioEsatto+CoreDataClass.swift */; };
-		7813D64720D11E1700FE5FC2 /* OrarioEsatto+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813D64520D11E1700FE5FC2 /* OrarioEsatto+CoreDataProperties.swift */; };
 		7822BAA920820613001C3294 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822BAA820820613001C3294 /* AppDelegate.swift */; };
 		7822BAAB20820613001C3294 /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822BAAA20820613001C3294 /* QRViewController.swift */; };
 		7822BAAE20820613001C3294 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7822BAAC20820613001C3294 /* Main.storyboard */; };
@@ -56,14 +36,32 @@
 		7878BDBC20AECC20004EA3CF /* TherapyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7878BDBB20AECC20004EA3CF /* TherapyViewCell.swift */; };
 		7878BDBE20B00468004EA3CF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7878BDBD20B00468004EA3CF /* NotificationManager.swift */; };
 		787D02CA20BD50A300BC8F77 /* HistoryTherapyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D02C920BD50A300BC8F77 /* HistoryTherapyViewCell.swift */; };
-		787D02CD20BD61C200BC8F77 /* MedicinaleWithTimeCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D02CB20BD61C100BC8F77 /* MedicinaleWithTimeCore+CoreDataProperties.swift */; };
-		787D02CE20BD61C200BC8F77 /* MedicinaleWithTimeCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D02CC20BD61C200BC8F77 /* MedicinaleWithTimeCore+CoreDataClass.swift */; };
-		787D02D120BD62EB00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D02CF20BD62EA00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift */; };
-		787D02D220BD62EB00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D02D020BD62EB00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */; };
 		787D02D420BE96D200BC8F77 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D02D320BE96D200BC8F77 /* SweetAlert.swift */; };
 		789AF8AE20A9E2A900DBF0FF /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789AF8AD20A9E2A900DBF0FF /* CoreDataController.swift */; };
 		78A3A7BE20C3F8E700F4EF70 /* CreateSOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A3A7BD20C3F8E700F4EF70 /* CreateSOSViewController.swift */; };
+		78BF4D6220D132FB00E9F6F4 /* MedicinaleWithTimeCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF4D6020D132FA00E9F6F4 /* MedicinaleWithTimeCore+CoreDataProperties.swift */; };
+		78BF4D6320D132FB00E9F6F4 /* MedicinaleWithTimeCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF4D6120D132FB00E9F6F4 /* MedicinaleWithTimeCore+CoreDataClass.swift */; };
+		78BF4D6620D1366B00E9F6F4 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF4D6420D1366A00E9F6F4 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift */; };
+		78BF4D6720D1366B00E9F6F4 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF4D6520D1366A00E9F6F4 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */; };
 		78CF031B2090E4D0003A28C0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 78CF031A2090E4D0003A28C0 /* GoogleService-Info.plist */; };
+		78D2FBC420D1557700B518BC /* TerapiaFarmacologicaCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBB220D1557300B518BC /* TerapiaFarmacologicaCore+CoreDataClass.swift */; };
+		78D2FBC520D1557700B518BC /* OrarioApprossimato+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBB320D1557400B518BC /* OrarioApprossimato+CoreDataClass.swift */; };
+		78D2FBC620D1557700B518BC /* MedicoCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBB420D1557400B518BC /* MedicoCore+CoreDataClass.swift */; };
+		78D2FBC720D1557700B518BC /* OrarioEsatto+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBB520D1557400B518BC /* OrarioEsatto+CoreDataClass.swift */; };
+		78D2FBC820D1557700B518BC /* PazienteCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBB620D1557400B518BC /* PazienteCore+CoreDataClass.swift */; };
+		78D2FBC920D1557700B518BC /* MedicoCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBB720D1557500B518BC /* MedicoCore+CoreDataProperties.swift */; };
+		78D2FBCA20D1557700B518BC /* OrarioEsatto+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBB820D1557500B518BC /* OrarioEsatto+CoreDataProperties.swift */; };
+		78D2FBCB20D1557700B518BC /* TerapiaFarmacologicaCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBB920D1557500B518BC /* TerapiaFarmacologicaCore+CoreDataProperties.swift */; };
+		78D2FBCC20D1557700B518BC /* Dosaggio+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBBA20D1557500B518BC /* Dosaggio+CoreDataProperties.swift */; };
+		78D2FBCD20D1557700B518BC /* OrarioApprossimato+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBBB20D1557500B518BC /* OrarioApprossimato+CoreDataProperties.swift */; };
+		78D2FBCE20D1557700B518BC /* Dosaggio+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBBC20D1557500B518BC /* Dosaggio+CoreDataClass.swift */; };
+		78D2FBCF20D1557700B518BC /* TerapiaNonFarmacologicaCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBBD20D1557600B518BC /* TerapiaNonFarmacologicaCore+CoreDataProperties.swift */; };
+		78D2FBD020D1557700B518BC /* Images+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBBE20D1557600B518BC /* Images+CoreDataClass.swift */; };
+		78D2FBD120D1557700B518BC /* TerapiaNonFarmacologicaCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBBF20D1557600B518BC /* TerapiaNonFarmacologicaCore+CoreDataClass.swift */; };
+		78D2FBD220D1557700B518BC /* Images+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBC020D1557600B518BC /* Images+CoreDataProperties.swift */; };
+		78D2FBD320D1557700B518BC /* MedicinaleCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBC120D1557600B518BC /* MedicinaleCore+CoreDataProperties.swift */; };
+		78D2FBD420D1557700B518BC /* MedicinaleCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBC220D1557600B518BC /* MedicinaleCore+CoreDataClass.swift */; };
+		78D2FBD520D1557700B518BC /* PazienteCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D2FBC320D1557700B518BC /* PazienteCore+CoreDataProperties.swift */; };
 		78E28D2F20A1F5DC006D6E4C /* FBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E28D2E20A1F5DC006D6E4C /* FBManager.swift */; };
 		78E28D3120A1F7A0006D6E4C /* Terapia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E28D3020A1F7A0006D6E4C /* Terapia.swift */; };
 		78E28D3320A1FE47006D6E4C /* TerapiaFarmacologica.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E28D3220A1FE47006D6E4C /* TerapiaFarmacologica.swift */; };
@@ -77,26 +75,6 @@
 		56EBF3B6C24E1AB4F85375CA /* Pods_Tesi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tesi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78034BC720A57878005D6EBE /* Paziente.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paziente.swift; sourceTree = "<group>"; };
 		78034BCB20A58715005D6EBE /* PazientiDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PazientiDAO.swift; sourceTree = "<group>"; };
-		7813D62020D11D6C00FE5FC2 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7813D62120D11D6C00FE5FC2 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7813D62220D11D6D00FE5FC2 /* Images+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Images+CoreDataClass.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/Images+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7813D62320D11D6D00FE5FC2 /* Images+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Images+CoreDataProperties.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/Images+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7813D62420D11D6D00FE5FC2 /* TerapiaNonFarmacologicaCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TerapiaNonFarmacologicaCore+CoreDataClass.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/TerapiaNonFarmacologicaCore+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7813D62520D11D6D00FE5FC2 /* TerapiaNonFarmacologicaCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TerapiaNonFarmacologicaCore+CoreDataProperties.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/TerapiaNonFarmacologicaCore+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7813D62620D11D6D00FE5FC2 /* TerapiaFarmacologicaCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TerapiaFarmacologicaCore+CoreDataProperties.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/TerapiaFarmacologicaCore+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7813D62720D11D6E00FE5FC2 /* TerapiaFarmacologicaCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TerapiaFarmacologicaCore+CoreDataClass.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/TerapiaFarmacologicaCore+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7813D63020D11DB200FE5FC2 /* MedicoCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MedicoCore+CoreDataClass.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/MedicoCore+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7813D63120D11DB200FE5FC2 /* MedicoCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MedicoCore+CoreDataProperties.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/MedicoCore+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7813D63220D11DB300FE5FC2 /* PazienteCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PazienteCore+CoreDataProperties.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/PazienteCore+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7813D63320D11DB300FE5FC2 /* PazienteCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PazienteCore+CoreDataClass.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/PazienteCore+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7813D63820D11DD400FE5FC2 /* Dosaggio+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Dosaggio+CoreDataProperties.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/Dosaggio+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7813D63920D11DD400FE5FC2 /* Dosaggio+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Dosaggio+CoreDataClass.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/Dosaggio+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7813D63A20D11DD500FE5FC2 /* OrarioApprossimato+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OrarioApprossimato+CoreDataClass.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/OrarioApprossimato+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7813D63B20D11DD500FE5FC2 /* OrarioApprossimato+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OrarioApprossimato+CoreDataProperties.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/OrarioApprossimato+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7813D64020D11E0900FE5FC2 /* MedicinaleCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MedicinaleCore+CoreDataProperties.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/MedicinaleCore+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7813D64120D11E0900FE5FC2 /* MedicinaleCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MedicinaleCore+CoreDataClass.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/MedicinaleCore+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7813D64420D11E1700FE5FC2 /* OrarioEsatto+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OrarioEsatto+CoreDataClass.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/OrarioEsatto+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7813D64520D11E1700FE5FC2 /* OrarioEsatto+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OrarioEsatto+CoreDataProperties.swift"; path = "../../../../PRESENTAZIONE Icarus + TESI/slides CHIMICA 2015-2016/Tesi/Model/CoreData/OrarioEsatto+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7822BAA520820613001C3294 /* Tesi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tesi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7822BAA820820613001C3294 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7822BAAA20820613001C3294 /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
@@ -126,14 +104,32 @@
 		7878BDBB20AECC20004EA3CF /* TherapyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapyViewCell.swift; sourceTree = "<group>"; };
 		7878BDBD20B00468004EA3CF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		787D02C920BD50A300BC8F77 /* HistoryTherapyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTherapyViewCell.swift; sourceTree = "<group>"; };
-		787D02CB20BD61C100BC8F77 /* MedicinaleWithTimeCore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MedicinaleWithTimeCore+CoreDataProperties.swift"; path = "../../MedicinaleWithTimeCore+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		787D02CC20BD61C200BC8F77 /* MedicinaleWithTimeCore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MedicinaleWithTimeCore+CoreDataClass.swift"; path = "../../MedicinaleWithTimeCore+CoreDataClass.swift"; sourceTree = "<group>"; };
-		787D02CF20BD62EA00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift"; path = "../../TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift"; sourceTree = "<group>"; };
-		787D02D020BD62EB00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift"; path = "../../TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		787D02D320BE96D200BC8F77 /* SweetAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
 		789AF8AD20A9E2A900DBF0FF /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		78A3A7BD20C3F8E700F4EF70 /* CreateSOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSOSViewController.swift; sourceTree = "<group>"; };
+		78BF4D6020D132FA00E9F6F4 /* MedicinaleWithTimeCore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MedicinaleWithTimeCore+CoreDataProperties.swift"; path = "/Users/tonysellitto/Desktop/slidesCHIMICA2015-2016/Tesi/Model/CoreData/MedicinaleWithTimeCore+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		78BF4D6120D132FB00E9F6F4 /* MedicinaleWithTimeCore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MedicinaleWithTimeCore+CoreDataClass.swift"; path = "/Users/tonysellitto/Desktop/slidesCHIMICA2015-2016/Tesi/Model/CoreData/MedicinaleWithTimeCore+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		78BF4D6420D1366A00E9F6F4 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift"; path = "/Users/tonysellitto/Desktop/slidesCHIMICA2015-2016/Tesi/Model/CoreData/TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		78BF4D6520D1366A00E9F6F4 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift"; path = "/Users/tonysellitto/Desktop/slidesCHIMICA2015-2016/Tesi/Model/CoreData/TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		78CF031A2090E4D0003A28C0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		78D2FBB220D1557300B518BC /* TerapiaFarmacologicaCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TerapiaFarmacologicaCore+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBB320D1557400B518BC /* OrarioApprossimato+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OrarioApprossimato+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBB420D1557400B518BC /* MedicoCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MedicoCore+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBB520D1557400B518BC /* OrarioEsatto+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OrarioEsatto+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBB620D1557400B518BC /* PazienteCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PazienteCore+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBB720D1557500B518BC /* MedicoCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MedicoCore+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBB820D1557500B518BC /* OrarioEsatto+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OrarioEsatto+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBB920D1557500B518BC /* TerapiaFarmacologicaCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TerapiaFarmacologicaCore+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBBA20D1557500B518BC /* Dosaggio+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dosaggio+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBBB20D1557500B518BC /* OrarioApprossimato+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OrarioApprossimato+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBBC20D1557500B518BC /* Dosaggio+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dosaggio+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBBD20D1557600B518BC /* TerapiaNonFarmacologicaCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TerapiaNonFarmacologicaCore+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBBE20D1557600B518BC /* Images+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Images+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBBF20D1557600B518BC /* TerapiaNonFarmacologicaCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TerapiaNonFarmacologicaCore+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBC020D1557600B518BC /* Images+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Images+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBC120D1557600B518BC /* MedicinaleCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MedicinaleCore+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBC220D1557600B518BC /* MedicinaleCore+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MedicinaleCore+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		78D2FBC320D1557700B518BC /* PazienteCore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PazienteCore+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		78E28D2E20A1F5DC006D6E4C /* FBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBManager.swift; sourceTree = "<group>"; };
 		78E28D3020A1F7A0006D6E4C /* Terapia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terapia.swift; sourceTree = "<group>"; };
 		78E28D3220A1FE47006D6E4C /* TerapiaFarmacologica.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerapiaFarmacologica.swift; sourceTree = "<group>"; };
@@ -226,30 +222,28 @@
 		7839938A20A85C8A00DC6D9B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				7813D62220D11D6D00FE5FC2 /* Images+CoreDataClass.swift */,
-				7813D62320D11D6D00FE5FC2 /* Images+CoreDataProperties.swift */,
-				7813D62720D11D6E00FE5FC2 /* TerapiaFarmacologicaCore+CoreDataClass.swift */,
-				7813D62620D11D6D00FE5FC2 /* TerapiaFarmacologicaCore+CoreDataProperties.swift */,
-				7813D62420D11D6D00FE5FC2 /* TerapiaNonFarmacologicaCore+CoreDataClass.swift */,
-				7813D62520D11D6D00FE5FC2 /* TerapiaNonFarmacologicaCore+CoreDataProperties.swift */,
-				787D02CF20BD62EA00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift */,
-				787D02D020BD62EB00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */,
-				787D02CC20BD61C200BC8F77 /* MedicinaleWithTimeCore+CoreDataClass.swift */,
-				787D02CB20BD61C100BC8F77 /* MedicinaleWithTimeCore+CoreDataProperties.swift */,
-				7813D64120D11E0900FE5FC2 /* MedicinaleCore+CoreDataClass.swift */,
-				7813D64020D11E0900FE5FC2 /* MedicinaleCore+CoreDataProperties.swift */,
-				7813D64420D11E1700FE5FC2 /* OrarioEsatto+CoreDataClass.swift */,
-				7813D64520D11E1700FE5FC2 /* OrarioEsatto+CoreDataProperties.swift */,
-				7813D63920D11DD400FE5FC2 /* Dosaggio+CoreDataClass.swift */,
-				7813D63820D11DD400FE5FC2 /* Dosaggio+CoreDataProperties.swift */,
-				7813D63A20D11DD500FE5FC2 /* OrarioApprossimato+CoreDataClass.swift */,
-				7813D63B20D11DD500FE5FC2 /* OrarioApprossimato+CoreDataProperties.swift */,
-				7813D63320D11DB300FE5FC2 /* PazienteCore+CoreDataClass.swift */,
-				7813D63020D11DB200FE5FC2 /* MedicoCore+CoreDataClass.swift */,
-				7813D63120D11DB200FE5FC2 /* MedicoCore+CoreDataProperties.swift */,
-				7813D63220D11DB300FE5FC2 /* PazienteCore+CoreDataProperties.swift */,
-				7813D62020D11D6C00FE5FC2 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift */,
-				7813D62120D11D6C00FE5FC2 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */,
+				78D2FBBC20D1557500B518BC /* Dosaggio+CoreDataClass.swift */,
+				78D2FBBA20D1557500B518BC /* Dosaggio+CoreDataProperties.swift */,
+				78D2FBBE20D1557600B518BC /* Images+CoreDataClass.swift */,
+				78D2FBC020D1557600B518BC /* Images+CoreDataProperties.swift */,
+				78D2FBC220D1557600B518BC /* MedicinaleCore+CoreDataClass.swift */,
+				78D2FBC120D1557600B518BC /* MedicinaleCore+CoreDataProperties.swift */,
+				78D2FBB420D1557400B518BC /* MedicoCore+CoreDataClass.swift */,
+				78D2FBB720D1557500B518BC /* MedicoCore+CoreDataProperties.swift */,
+				78D2FBB320D1557400B518BC /* OrarioApprossimato+CoreDataClass.swift */,
+				78D2FBBB20D1557500B518BC /* OrarioApprossimato+CoreDataProperties.swift */,
+				78D2FBB520D1557400B518BC /* OrarioEsatto+CoreDataClass.swift */,
+				78D2FBB820D1557500B518BC /* OrarioEsatto+CoreDataProperties.swift */,
+				78D2FBB620D1557400B518BC /* PazienteCore+CoreDataClass.swift */,
+				78D2FBC320D1557700B518BC /* PazienteCore+CoreDataProperties.swift */,
+				78D2FBB220D1557300B518BC /* TerapiaFarmacologicaCore+CoreDataClass.swift */,
+				78D2FBB920D1557500B518BC /* TerapiaFarmacologicaCore+CoreDataProperties.swift */,
+				78D2FBBF20D1557600B518BC /* TerapiaNonFarmacologicaCore+CoreDataClass.swift */,
+				78D2FBBD20D1557600B518BC /* TerapiaNonFarmacologicaCore+CoreDataProperties.swift */,
+				78BF4D6120D132FB00E9F6F4 /* MedicinaleWithTimeCore+CoreDataClass.swift */,
+				78BF4D6020D132FA00E9F6F4 /* MedicinaleWithTimeCore+CoreDataProperties.swift */,
+				78BF4D6420D1366A00E9F6F4 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift */,
+				78BF4D6520D1366A00E9F6F4 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift */,
 				789AF8AD20A9E2A900DBF0FF /* CoreDataController.swift */,
 			);
 			path = CoreData;
@@ -425,62 +419,60 @@
 			buildActionMask = 2147483647;
 			files = (
 				78A3A7BE20C3F8E700F4EF70 /* CreateSOSViewController.swift in Sources */,
-				7813D63420D11DB300FE5FC2 /* MedicoCore+CoreDataClass.swift in Sources */,
+				78D2FBCA20D1557700B518BC /* OrarioEsatto+CoreDataProperties.swift in Sources */,
+				78D2FBC420D1557700B518BC /* TerapiaFarmacologicaCore+CoreDataClass.swift in Sources */,
 				7822BAAB20820613001C3294 /* QRViewController.swift in Sources */,
-				787D02CE20BD61C200BC8F77 /* MedicinaleWithTimeCore+CoreDataClass.swift in Sources */,
 				7823D26C2094CE8F00094E35 /* Medicinale.swift in Sources */,
-				7813D64720D11E1700FE5FC2 /* OrarioEsatto+CoreDataProperties.swift in Sources */,
-				7813D63620D11DB300FE5FC2 /* PazienteCore+CoreDataProperties.swift in Sources */,
+				78D2FBD020D1557700B518BC /* Images+CoreDataClass.swift in Sources */,
+				78D2FBC520D1557700B518BC /* OrarioApprossimato+CoreDataClass.swift in Sources */,
+				78D2FBC820D1557700B518BC /* PazienteCore+CoreDataClass.swift in Sources */,
 				7822BAA920820613001C3294 /* AppDelegate.swift in Sources */,
 				7866F3CD20A6EC980036010E /* MediciDAO.swift in Sources */,
-				7813D63720D11DB300FE5FC2 /* PazienteCore+CoreDataClass.swift in Sources */,
-				787D02D120BD62EB00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift in Sources */,
+				78D2FBCC20D1557700B518BC /* Dosaggio+CoreDataProperties.swift in Sources */,
 				78E28D3320A1FE47006D6E4C /* TerapiaFarmacologica.swift in Sources */,
+				78D2FBD520D1557700B518BC /* PazienteCore+CoreDataProperties.swift in Sources */,
 				7822BAC02082067F001C3294 /* ItemViewController.swift in Sources */,
 				789AF8AE20A9E2A900DBF0FF /* CoreDataController.swift in Sources */,
 				78E28D2F20A1F5DC006D6E4C /* FBManager.swift in Sources */,
-				7813D64620D11E1700FE5FC2 /* OrarioEsatto+CoreDataClass.swift in Sources */,
 				787D02CA20BD50A300BC8F77 /* HistoryTherapyViewCell.swift in Sources */,
-				7813D64320D11E0A00FE5FC2 /* MedicinaleCore+CoreDataClass.swift in Sources */,
-				7813D63F20D11DD500FE5FC2 /* OrarioApprossimato+CoreDataProperties.swift in Sources */,
+				78D2FBC620D1557700B518BC /* MedicoCore+CoreDataClass.swift in Sources */,
+				78D2FBCF20D1557700B518BC /* TerapiaNonFarmacologicaCore+CoreDataProperties.swift in Sources */,
 				7866F3CF20A786DB0036010E /* MainViewController.swift in Sources */,
-				7813D62F20D11D6E00FE5FC2 /* TerapiaFarmacologicaCore+CoreDataClass.swift in Sources */,
 				783EC73E20B558C8009DE07A /* TerapieManager.swift in Sources */,
-				787D02CD20BD61C200BC8F77 /* MedicinaleWithTimeCore+CoreDataProperties.swift in Sources */,
 				784DEDB120B165A800874624 /* MedicinaleWithTime.swift in Sources */,
+				78BF4D6620D1366B00E9F6F4 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift in Sources */,
 				7839938920A8530200DC6D9B /* Medico.swift in Sources */,
-				7813D62D20D11D6E00FE5FC2 /* TerapiaNonFarmacologicaCore+CoreDataProperties.swift in Sources */,
+				78D2FBCD20D1557700B518BC /* OrarioApprossimato+CoreDataProperties.swift in Sources */,
+				78D2FBD420D1557700B518BC /* MedicinaleCore+CoreDataClass.swift in Sources */,
 				78E28D3120A1F7A0006D6E4C /* Terapia.swift in Sources */,
 				78318B3E2083924D00536A45 /* RootPageViewController.swift in Sources */,
 				78E28D3520A1FE68006D6E4C /* TerapiaNonFarmacologica.swift in Sources */,
-				7813D62E20D11D6E00FE5FC2 /* TerapiaFarmacologicaCore+CoreDataProperties.swift in Sources */,
+				78D2FBD320D1557700B518BC /* MedicinaleCore+CoreDataProperties.swift in Sources */,
 				7842F1BA20B7102000240B1B /* SOS.swift in Sources */,
-				7813D63520D11DB300FE5FC2 /* MedicoCore+CoreDataProperties.swift in Sources */,
-				7813D62A20D11D6E00FE5FC2 /* Images+CoreDataClass.swift in Sources */,
-				7813D62920D11D6E00FE5FC2 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift in Sources */,
+				78BF4D6720D1366B00E9F6F4 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift in Sources */,
 				7878BDBC20AECC20004EA3CF /* TherapyViewCell.swift in Sources */,
-				7813D64220D11E0A00FE5FC2 /* MedicinaleCore+CoreDataProperties.swift in Sources */,
-				7813D62B20D11D6E00FE5FC2 /* Images+CoreDataProperties.swift in Sources */,
+				78BF4D6220D132FB00E9F6F4 /* MedicinaleWithTimeCore+CoreDataProperties.swift in Sources */,
+				78BF4D6320D132FB00E9F6F4 /* MedicinaleWithTimeCore+CoreDataClass.swift in Sources */,
 				78034BC820A57878005D6EBE /* Paziente.swift in Sources */,
+				78D2FBC720D1557700B518BC /* OrarioEsatto+CoreDataClass.swift in Sources */,
 				7878BDBA20ADCDAA004EA3CF /* ProfileViewController.swift in Sources */,
 				78467F8F20B0232D00712CDC /* TraslationManager.swift in Sources */,
 				7842F1BC20B717CF00240B1B /* SOSViewController.swift in Sources */,
 				7842F1BE20B7562700240B1B /* HistoryViewController.swift in Sources */,
 				7822BAB120820613001C3294 /* Tesi.xcdatamodeld in Sources */,
-				7813D62820D11D6E00FE5FC2 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataClass.swift in Sources */,
 				7873CB4A20CBFABB00D9A550 /* PopUpViewController.swift in Sources */,
 				7878BDBE20B00468004EA3CF /* NotificationManager.swift in Sources */,
+				78D2FBD120D1557700B518BC /* TerapiaNonFarmacologicaCore+CoreDataClass.swift in Sources */,
 				787D02D420BE96D200BC8F77 /* SweetAlert.swift in Sources */,
+				78D2FBD220D1557700B518BC /* Images+CoreDataProperties.swift in Sources */,
 				783EC73C20B4726B009DE07A /* TerapiaNonFarmacologicaWithTime.swift in Sources */,
-				7813D62C20D11D6E00FE5FC2 /* TerapiaNonFarmacologicaCore+CoreDataClass.swift in Sources */,
-				787D02D220BD62EB00BC8F77 /* TerapiaNonFarmacologicaWithTimeCore+CoreDataProperties.swift in Sources */,
-				7813D63E20D11DD500FE5FC2 /* OrarioApprossimato+CoreDataClass.swift in Sources */,
 				7842F1C020B7F10900240B1B /* SpecificTherapyViewController.swift in Sources */,
+				78D2FBC920D1557700B518BC /* MedicoCore+CoreDataProperties.swift in Sources */,
 				7822BABE2082065F001C3294 /* PageViewController.swift in Sources */,
 				78034BCC20A58715005D6EBE /* PazientiDAO.swift in Sources */,
-				7813D63D20D11DD500FE5FC2 /* Dosaggio+CoreDataClass.swift in Sources */,
+				78D2FBCE20D1557700B518BC /* Dosaggio+CoreDataClass.swift in Sources */,
 				78FEF0BE20CEFF37000E9F18 /* NewNotificationManager.swift in Sources */,
-				7813D63C20D11DD500FE5FC2 /* Dosaggio+CoreDataProperties.swift in Sources */,
+				78D2FBCB20D1557700B518BC /* TerapiaFarmacologicaCore+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
