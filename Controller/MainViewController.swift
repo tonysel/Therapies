@@ -61,8 +61,22 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.activityIndicator.stopAnimating()
         self.activityIndicator.isHidden = true
         
-//      NotificationManager.createNotificationsForTerapieFarmacologiche(paziente: (appDelegate?.paziente!)!)
+//    non vi sono pending requests poichè è la prima volta dell'utilizzo dell'app
+//        NotificationManager.createNotificationsForTerapieFarmacologiche(paziente: (appDelegate?.paziente!)!)
         
+//        var n : NewNotificationManager?
+//
+//        if UserDefaults.standard.bool(forKey: "notFirstTime") == false{
+//
+//            n?.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
+//
+//        }
+        
+        if UserDefaults.standard.bool(forKey: "notFirstTime") == false{
+            
+            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
+            
+        }
     }
     
     func onFailure() {
@@ -96,48 +110,55 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
-    func readIsFirstTimeLogin() -> Bool{
-        
-        var format = PropertyListSerialization.PropertyListFormat.xml//format of the property list
-        var plistData: [String:AnyObject] = [:]  //our data
-        let plistPath:String? = Bundle.main.path(forResource: "data", ofType: "plist")! //the path of the data
-        let plistXML = FileManager.default.contents(atPath: plistPath!)! //the data in XML format
-        var isFirstTimeLogin = false
-        do{
-            //convert the data to a dictionary and handle errors.
-            plistData = try PropertyListSerialization.propertyList(from: plistXML, options: .mutableContainersAndLeaves, format: &format) as! [String : AnyObject]
-            
-            //assign the values in the dictionary to the properties
-            isFirstTimeLogin = plistData["isFirstTimeLogin"] as! Bool
-            
-        }
-        catch{ // error condition
-            print("Error reading plist: \(error), format: \(format)")
-        }
-        
-        return isFirstTimeLogin
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+//        self.navigationController?.navigationBar.barTintColor = .white
+//
+//        self.navigationController?.navigationBar.prefersLargeTitles = true
+//    }
     
-    func readPropertyList(){
-        
-        var format = PropertyListSerialization.PropertyListFormat.xml//format of the property list
-        var plistData: [String:AnyObject] = [:]  //our data
-        let plistPath:String? = Bundle.main.path(forResource: "data", ofType: "plist")! //the path of the data
-        let plistXML = FileManager.default.contents(atPath: plistPath!)! //the data in XML format
-        do{ //convert the data to a dictionary and handle errors.
-            
-            plistData = try PropertyListSerialization.propertyList(from: plistXML, options: .mutableContainersAndLeaves, format: &format) as! [String : AnyObject]
-            
-            //assign the values in the dictionary to the properties
-            let isFirstTimeLogin = plistData["isFirstTimeLogin"] as! Bool
-            
-            print("vediii benneeeee plist: \(isFirstTimeLogin)")
-            
-        }
-        catch{ // error condition
-            print("Error reading plist: \(error), format: \(format)")
-        }
-    }
+//    func readIsFirstTimeLogin() -> Bool{
+//
+//        var format = PropertyListSerialization.PropertyListFormat.xml//format of the property list
+//        var plistData: [String:AnyObject] = [:]  //our data
+//        let plistPath:String? = Bundle.main.path(forResource: "data", ofType: "plist")! //the path of the data
+//        let plistXML = FileManager.default.contents(atPath: plistPath!)! //the data in XML format
+//        var isFirstTimeLogin = false
+//        do{
+//            //convert the data to a dictionary and handle errors.
+//            plistData = try PropertyListSerialization.propertyList(from: plistXML, options: .mutableContainersAndLeaves, format: &format) as! [String : AnyObject]
+//
+//            //assign the values in the dictionary to the properties
+//            isFirstTimeLogin = plistData["isFirstTimeLogin"] as! Bool
+//
+//        }
+//        catch{ // error condition
+//            print("Error reading plist: \(error), format: \(format)")
+//        }
+//
+//        return isFirstTimeLogin
+//    }
+    
+//    func readPropertyList(){
+//
+//        var format = PropertyListSerialization.PropertyListFormat.xml//format of the property list
+//        var plistData: [String:AnyObject] = [:]  //our data
+//        let plistPath:String? = Bundle.main.path(forResource: "data", ofType: "plist")! //the path of the data
+//        let plistXML = FileManager.default.contents(atPath: plistPath!)! //the data in XML format
+//        do{ //convert the data to a dictionary and handle errors.
+//
+//            plistData = try PropertyListSerialization.propertyList(from: plistXML, options: .mutableContainersAndLeaves, format: &format) as! [String : AnyObject]
+//
+//            //assign the values in the dictionary to the properties
+//            let isFirstTimeLogin = plistData["isFirstTimeLogin"] as! Bool
+//
+//            print("vediii benneeeee plist: \(isFirstTimeLogin)")
+//
+//        }
+//        catch{ // error condition
+//            print("Error reading plist: \(error), format: \(format)")
+//        }
+//    }
     
     @objc func populate(){
         let fbManager = FBManager()
@@ -146,9 +167,21 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         refresher.endRefreshing()
     }
     
+//    override func viewDidAppear(_ animated: Bool) {
+//
+//        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+//        self.navigationController?.navigationBar.barTintColor = .white
+//
+//        self.navigationController?.navigationBar.prefersLargeTitles = true
+//    }
+    
     override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+        
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.barTintColor = .white
+        
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
         
         if  UserDefaults.standard.bool(forKey: "notFirstTime") == false{
             
@@ -165,10 +198,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             //            fbManager.updateDB(codicePaziente: (appDelegate?.qrCode!)!, ultimaModificaPiano: (appDelegate?.paziente?.getUltimaModifica())!)
         }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        self.tableView.backgroundView?.frame.origin.y -= 0
+        self.setGradientBackground()
       
         self.tableView.delegate = self
         self.tableView.isHidden = true
@@ -176,10 +213,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.activityIndicator.startAnimating()
         self.profileButton.isEnabled = false        
         
-        fbManager.delegate = self
-        
-       
-        
+        self.fbManager.delegate = self
+    
         //Create a refresh object to reload data
         refresher = UIRefreshControl()
         let colorRefresher =  UIColor(red: 4.0/255.0, green: 182.0/255.0, blue: 189.0/255.0, alpha: 1)
@@ -194,30 +229,29 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 7
     }
-    
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        let date = Date(timeIntervalSinceNow: TimeInterval(section * 86400))
-        
-        let dateFormatter = DateFormatter.init()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let stringDate = dateFormatter.string(from: date)
-        
-        return stringDate
-    }
-    
+
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//
+//        let date = Date(timeIntervalSinceNow: TimeInterval(section * 86400))
+//
+//        let dateFormatter = DateFormatter.init()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        let stringDate = dateFormatter.string(from: date)
+//
+//        return stringDate
+//    }
     
     func tableView(_ tableView: UITableView!, cellForRowAt indexPath: IndexPath!) -> UITableViewCell!{
+        
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "therapyCell", for: indexPath) as! TherapyViewCell
         
         if isFinishedLoading && selectedSegment == 1{
+            
+            
             
             let medicinaleWithTime = dictTerFarm[indexPath.section]![indexPath.row]
             
@@ -232,17 +266,38 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             if medicinaleWithTime.getTipoOrario() == "orario_esatto"{
                 cell.timeLab.text = dateFormatter.string(from: (medicinaleWithTime.getTime()!))
-                cell.ripMedicine.text = ""
+                if CoreDataController.shared.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!){
+                    cell.ripMedicine.text =  "✅"
+                }
+                else{
+                    cell.ripMedicine.text = ""
+                }
             }
             else if medicinaleWithTime.getTipoOrario() == "orario_libero"{
                 cell.timeLab.text = "Orario libero"
-                cell.ripMedicine.text = "Ripetizioni: \(medicinaleWithTime.getRipetizioni() ?? 0)"
+                if CoreDataController.shared.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!){
+                    if medicinaleWithTime.getRipetizioni()! - Int(CoreDataController.shared.loadMedicinaleWithOrarioLiberoFromId(id: medicinaleWithTime.getId()!).ripetizioni) > 0{
+                        cell.ripMedicine.text = "Ripetizioni mancanti: \(medicinaleWithTime.getRipetizioni()! - Int(CoreDataController.shared.loadMedicinaleWithOrarioLiberoFromId(id: medicinaleWithTime.getId()!).ripetizioni))"
+                    }
+                    else{
+                        cell.ripMedicine.text =  "✅"
+                    }
+                }
+                else{
+                    cell.ripMedicine.text = "Ripetizioni mancanti: \(medicinaleWithTime.getRipetizioni() ?? 0)"
+                }
             }
             else{
-                cell.timeLab.text = "\(medicinaleWithTime.getOrarioApprossimato() ?? "nil")-\(medicinaleWithTime.getQuandoApprossimato() ?? "nil")"
-                cell.ripMedicine.text = ""
+                cell.timeLab.text = "\(medicinaleWithTime.getOrarioApprossimato() ?? "nil") \(medicinaleWithTime.getQuandoApprossimato() ?? "nil")"
+                if CoreDataController.shared.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!){
+                    cell.ripMedicine.text =  "✅"
+                }
+                else{
+                    cell.ripMedicine.text = ""
+                }
             }
-            cell.qtaMedicine.text = "\(medicinaleWithTime.getDosaggio() ?? 0) - \(medicinaleWithTime.getMedicinale().getMisuraDosaggio())"
+            cell.qtaMedicine.text = "\(medicinaleWithTime.getDosaggio() ?? 0) \(medicinaleWithTime.getMedicinale().getMisuraDosaggio())"
+            cell.codTer.text = "Cod Ter : \(medicinaleWithTime.getCodiceTerapia() ?? "nil")"
 
 //            cell.qtaMedicine.isHidden = false
         }
@@ -257,17 +312,55 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             dateFormatter.dateFormat = "HH:mm"
             if terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_esatto"{
                 cell.timeLab.text = dateFormatter.string(from: (terapiaNonFarmacologicaWithTime.getTime()!))
-                cell.qtaMedicine.text = ""
+                if CoreDataController.shared.existsTerapiaNonFarmacologicaWithTimeFromId(id: terapiaNonFarmacologicaWithTime.getId()!){
+                    if CoreDataController.shared.loadTerNonFarmWithOrarioLiberoFromId(id: terapiaNonFarmacologicaWithTime.getId()!).value != 0{
+                        cell.qtaMedicine.text = "\(CoreDataController.shared.loadTerNonFarmWithOrarioLiberoFromId(id: terapiaNonFarmacologicaWithTime.getId()!).value)"
+                    }
+                    else{
+                        cell.qtaMedicine.text = ""
+                    }
+                    cell.ripMedicine.text =  "✅"
+                }else{
+                    cell.qtaMedicine.text = ""
+                    cell.ripMedicine.text =  ""
+                }
             }
             else if terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_libero"{
                 cell.timeLab.text = "Orario libero"
-                cell.qtaMedicine.text = "Ripetizioni: \(terapiaNonFarmacologicaWithTime.getRipetizioni() ?? 0)"
+                if CoreDataController.shared.existsTerapiaNonFarmacologicaWithTimeFromId(id: terapiaNonFarmacologicaWithTime.getId()!){
+                    if  terapiaNonFarmacologicaWithTime.getRipetizioni()! - Int(CoreDataController.shared.loadTerNonFarmWithOrarioLiberoFromId(id: terapiaNonFarmacologicaWithTime.getId()!).ripetizioni) > 0{
+                        cell.ripMedicine.text = "Ripetizioni mancanti: \(terapiaNonFarmacologicaWithTime.getRipetizioni()! - Int(CoreDataController.shared.loadTerNonFarmWithOrarioLiberoFromId(id: terapiaNonFarmacologicaWithTime.getId()!).ripetizioni))"
+                        cell.qtaMedicine.text = ""
+                    }
+                    else{
+                        cell.ripMedicine.text =  "✅"
+                        cell.qtaMedicine.text = ""
+                    }
+                }
+                else{
+                    cell.ripMedicine.text = "Ripetizioni mancanti: \(terapiaNonFarmacologicaWithTime.getRipetizioni() ?? 0)"
+                    cell.qtaMedicine.text = ""
+                }
             }
             else{
                 cell.timeLab.text = "\(terapiaNonFarmacologicaWithTime.getOrarioApprossimato() ?? "nil")-\(terapiaNonFarmacologicaWithTime.getQuandoApprossimato() ?? "nil")"
-                cell.qtaMedicine.text = ""
+                if CoreDataController.shared.existsTerapiaNonFarmacologicaWithTimeFromId(id: terapiaNonFarmacologicaWithTime.getId()!){
+//                    cell.qtaMedicine.text = "\(CoreDataController.shared.loadTerNonFarmWithOrarioLiberoFromId(id: terapiaNonFarmacologicaWithTime.getId()!).value)"
+                    if CoreDataController.shared.loadTerNonFarmWithOrarioLiberoFromId(id: terapiaNonFarmacologicaWithTime.getId()!).value != 0{
+                        cell.qtaMedicine.text = "\(CoreDataController.shared.loadTerNonFarmWithOrarioLiberoFromId(id: terapiaNonFarmacologicaWithTime.getId()!).value)"
+                    }
+                    else{
+                        cell.qtaMedicine.text = ""
+                    }
+                    cell.ripMedicine.text =  "✅"
+                }else{
+                    cell.qtaMedicine.text = ""
+                    cell.ripMedicine.text = ""
+                }
             }
-            cell.ripMedicine.isHidden = true
+            cell.codTer.text = "Cod Ter: \(terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getCodice())"
+            
+//            cell.ripMedicine.isHidden = true
         }
         
         return cell
@@ -306,6 +399,35 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
       
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 180, height: 30))
+        let colorBottom = UIColor(red: 52.0/255.0, green: 147.0/255.0, blue: 196.0/255.0, alpha: 0.7)
+        
+        headerView.layer.cornerRadius = 8
+        
+//        headerView.layer.backgroundColor = UIColor.yellow.cgColor
+    
+        headerView.backgroundColor = colorBottom
+
+        let label = UILabel()
+        label.backgroundColor = UIColor.clear
+        label.textColor = .white
+        label.textAlignment = .center
+        let date = Date(timeIntervalSinceNow: TimeInterval(section * 86400))
+        let dateFormatter = DateFormatter.init()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let stringDate = dateFormatter.string(from: date)
+        label.frame = CGRect(x: self.view.frame.midX - 100, y: 7, width: 200, height: 15)
+        label.text = "\(TraslationManager.loadDayName(forDate: date)) \(stringDate)"
+        headerView.addSubview(label)
+        
+
+//       self.view.layer.insertSublayer(headerView.layer, at:0)
+
+        return headerView
+    }
+    
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        if (selectedSegment == 1){
 //            self.performSegue(withIdentifier: "specificTherapySegue", sender: tableView)
@@ -319,7 +441,20 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        }
 //        self.tableView.deselectRow(at: indexPath, animated: true)
 //    }
-//    
+
+    func setGradientBackground() {
+        let colorTop =  UIColor(red: 48.0/255.0, green: 210.0/255.0, blue: 190.0/255.0, alpha: 0.7).cgColor
+        let colorBottom = UIColor(red: 52.0/255.0, green: 147.0/255.0, blue: 196.0/255.0, alpha: 0.7).cgColor
+     
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [ colorTop, colorBottom]
+        //gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+        //gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        gradientLayer.locations = [ 0.0, 0.83]
+        gradientLayer.frame = self.view.bounds
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
     
     // MARK: - Table view delegate
 
