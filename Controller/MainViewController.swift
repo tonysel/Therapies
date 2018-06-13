@@ -64,17 +64,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 //    non vi sono pending requests poichè è la prima volta dell'utilizzo dell'app
 //        NotificationManager.createNotificationsForTerapieFarmacologiche(paziente: (appDelegate?.paziente!)!)
         
-//        var n : NewNotificationManager?
-//
-//        if UserDefaults.standard.bool(forKey: "notFirstTime") == false{
-//
-//            n?.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
-//
-//        }
-        
-        if UserDefaults.standard.bool(forKey: "notFirstTime") == false{
+        if UserDefaults.standard.bool(forKey: "notFirstTime") == true{
             
-            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
+            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: (appDelegate?.paziente!)!)
             
         }
     }
@@ -171,7 +163,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 //
 //        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
 //        self.navigationController?.navigationBar.barTintColor = .white
-//
 //        self.navigationController?.navigationBar.prefersLargeTitles = true
 //    }
     

@@ -140,10 +140,8 @@ class SpecificTherapyViewController: UIViewController, UITextFieldDelegate, FBMa
         
         self.definesPresentationContext = true
 //
-//        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
-//        self.navigationController?.navigationBar.barTintColor = .white
-//
-//        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+        self.navigationController?.navigationBar.prefersLargeTitles = false
 
     }
 //

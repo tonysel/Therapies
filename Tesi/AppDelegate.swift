@@ -37,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         
+        self.window?.backgroundColor = UIColor(red: 45.0/255.0, green: 208.0/255.0, blue: 191.0/255.0, alpha: 1)
+        
         if let rvc = self.window?.rootViewController {
             if UserDefaults.standard.bool(forKey: "notFirstTime") ==  true{
                 self.window!.rootViewController = rvc.storyboard!.instantiateViewController(withIdentifier: "TabBarController")
@@ -68,30 +70,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
         UNUserNotificationCenter.current().delegate = self
-        
-//        self.scheduleNotification()
-        
-//        var n : NewNotificationManager?
 //
 //        if UserDefaults.standard.bool(forKey: "notFirstTime") == true{
 //
-//            n?.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
+//            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
 //
 //        }
-        
-        if UserDefaults.standard.bool(forKey: "notFirstTime") == true{
-
-            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
-
-        }
-//
-        UNUserNotificationCenter.current().getPendingNotificationRequests{requests -> () in
-            print("\(requests.count) requests -------")
-            for request in requests{
-                print(request.identifier)
-                print(request.trigger)
-            }
-        }
+////
+//        UNUserNotificationCenter.current().getPendingNotificationRequests{requests -> () in
+//            print("\(requests.count) requests -------")
+//            for request in requests{
+//                print(request.identifier)
+//                print(request.trigger)
+//            }
+//        }
         
         return true
     }
@@ -133,7 +125,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     {
         completionHandler([.alert, .badge, .sound])
     }
-    
         // Override point for customization after application launch.
         
 //        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
@@ -191,6 +182,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        if UserDefaults.standard.bool(forKey: "notFirstTime") == true{
+            
+            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
+            
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
