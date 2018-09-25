@@ -17,7 +17,8 @@ class FBManager{
     
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
-    //TERAPIA 1
+    // - MARK: readSpecificTherapieFarmacologiche
+    
     public func readSpecificTherapieFarmacologiche(codiciTerapie: [String], completionHandlers:@escaping ([TerapiaFarmacologica])->Void) {
     
         var finalTerapieFarmacologiche = [TerapiaFarmacologica]()
@@ -27,7 +28,6 @@ class FBManager{
             let ref_specific_therapy  = Database.database().reference().ref.child("TerapieFarmacologiche").child(codiciTerapie[i - 1])
             
             ref_specific_therapy.observeSingleEvent(of: .value){ (snap) in
-                
                 
                 //Fetching node 'Therapy' and conversion in Dictionary
                 guard let therapy_read = snap.value as? NSDictionary else {
@@ -41,11 +41,11 @@ class FBManager{
                     return
                 }
                 
-                //orario_aggiunta
-                guard let orario_aggiunta = (therapy_read["orario_aggiunta"] as? Int) else {
-                    print("Error fetching name")
-                    return
-                }
+//                //orario_aggiunta
+//                guard let orario_aggiunta = (therapy_read["orario_aggiunta"] as? Int) else {
+//                    print("Error fetching name")
+//                    return
+//                }
                 
                 //raccomandazioni
                 guard let raccomandazioni = (therapy_read["raccomandazioni"] as? String) else {
@@ -195,8 +195,8 @@ class FBManager{
         
     }
     
+    // - MARK: readSpecificTherapieNonFarmacologiche
     
-    //TERAPIA 2
     public func readSpecificTherapieNonFarmacologiche(codiciTerapie: [String], completionHandlers:@escaping ([TerapiaNonFarmacologica])->Void) {
         
         var finalTerapieNonFarmacologiche = [TerapiaNonFarmacologica]()
@@ -226,11 +226,11 @@ class FBManager{
                     return
                 }
                 
-                //orario_aggiunta
-                guard let orario_aggiunta = (therapy_read["orario_aggiunta"] as? Int) else {
-                    print("Error fetching name")
-                    return
-                }
+//                //orario_aggiunta
+//                guard let orario_aggiunta = (therapy_read["orario_aggiunta"] as? Int) else {
+//                    print("Error fetching name")
+//                    return
+//                }
                 
                 //raccomandazioni
                 guard let raccomandazioni = (therapy_read["raccomandazioni"] as? String) else {
@@ -295,7 +295,8 @@ class FBManager{
     }
     
     
-    //PATIENT 1
+    // - MARK: readSpecificPatientQRCode
+    
     public func readSpecificPatientQRCode(qrCode: String, completionHandlers:@escaping (Paziente, String, [String], [String])->Void) {
         
         var terapieFarmacologiche = [String]()
@@ -384,7 +385,8 @@ class FBManager{
         
     }
     
-    //PATIENT 2
+    // - MARK: readCodiceFiscaleFromQRCode
+    
     public func readCodiceFiscaleFromQRCode(qrCode: String, completionHandlers:@escaping(String) -> Void){
         
         let ref_specific_patient  = Database.database().reference().ref.child("Pazienti").child(qrCode)
@@ -408,7 +410,8 @@ class FBManager{
         }
     }
     
-    //PATIENT 3
+    // - MARK: existsQRCodeOnDB
+    
     public func existsQRCodeOnDB(qrCode: String, completionHandlers:@escaping(Bool) -> Void){
         
         var founded = false
@@ -440,7 +443,8 @@ class FBManager{
         
     }
     
-    //PATIENT 4
+    // - MARK: aggiungiDiarioTerapieNonFarmacologiche
+    
     public func aggiungiDiarioTerapieNonFarmacologiche(nomeTerapia: String, risultato: Double, qrCode: String){
         
         let diarioTerapia = [
@@ -466,7 +470,8 @@ class FBManager{
         self.delegate?.onSuccess()
     }
     
-    //MEDICO 1
+     // - MARK: readSpecificMedico
+    
     public func readSpecificMedico(codiceMedico: String, completionHandlers:@escaping (Medico)->Void) {
         
         let ref_specific_patient  = Database.database().reference().ref.child("Medici").child(codiceMedico)
@@ -499,17 +504,16 @@ class FBManager{
                 return
             }
             
-            
             //inizializzazione medico
             let medico = Medico(codice: codiceMedico, nome: nome, cognome: cognome, recapitoTelefonico: recapitoTelefonico)
-            //
             
             completionHandlers(medico)
         }
         
     }
     
-    //MEDICO 2
+    // - MARK: aggiungiRichiestaAiuto
+    
     public func aggiungiRichiestaAiuto(medico: Medico, codice: String, nota: String){
         
         //Conversione di una richesta di aiuto al medico in dictionary
@@ -549,7 +553,8 @@ class FBManager{
         completionHandlers()
     }
     
-    //MEDICO 3
+    // - MARK: readRichiesteAiuto
+    
     public func readRichiesteAiuto(medico: Medico, codice: String, completionHandlers:@escaping ([SOS])->Void){
         
         var soss = [SOS]()
@@ -647,11 +652,11 @@ class FBManager{
     }
     
     
-    //PROVA PAZIENTE
+    // - MARK: savePaziente
     
     public func savePaziente(qrCode: String){
         CoreDataController.shared.deleteAllPazienti()
-        CoreDataController.shared.deleteAllImages()
+//        CoreDataController.shared.deleteAllImages()
         CoreDataController.shared.deleteAllMedicine()
         CoreDataController.shared.deleteAllMedici()
         CoreDataController.shared.deleteAllTerapieFarmacologiche()
@@ -668,23 +673,22 @@ class FBManager{
                     
                     self.readSpecificTherapieNonFarmacologiche(codiciTerapie: terapieNonFarmacologiche){(terapieNonFarm) in
                         
-                        //IMPORTANTE
                         paziente.aggiungiTerapieFarmacologiche(terapie: terapieFarm)
                         
                         for i in 1...paziente.getTerapieFarmacologiche().count{
                             
-                            print("CODICE TERAPIA FARM \(i): \(paziente.getTerapieFarmacologiche()[i-1].getCodice())")
+                            print("COD TER FARM \(i): \(paziente.getTerapieFarmacologiche()[i-1].getCodice())")
                             
                         }
                         
                         paziente.aggiungiTerapieNonFarmacologiche(terapie: terapieNonFarm)
                         
                         for i in 1...paziente.getTerapieNonFarmacologiche().count{
-                            print("CODICE TERAPIA NON FARM \(i): \(paziente.getTerapieNonFarmacologiche()[i-1].getCodice())")
+                            print("COD TER NON FARM \(i): \(paziente.getTerapieNonFarmacologiche()[i-1].getCodice())")
                             
                         }
                         
-                        //HO FINITO DI SCARICARE DA FIREBASE
+                        //End download from Firebase
                         
                         CoreDataController.shared.aggiungiPaziente(paziente: paziente, terapieFarmacologiche: terapieFarm, terapieNonFarmacologiche: terapieNonFarm, medicoControllo: medico)
                         

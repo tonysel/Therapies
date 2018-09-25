@@ -15,6 +15,7 @@ class NewNotificationManager {
     
     var delegateNotification : NotificationManagerDelegate!
 
+    
     static func createNotificationsForTerapieFarmacologiche (paziente: Paziente){
      
         for terapiaFarmacologica in paziente.getTerapieFarmacologiche(){
@@ -35,14 +36,20 @@ class NewNotificationManager {
                             
                             notification.categoryIdentifier = "actionCategory"
                             
-                            //
+                            let url = Bundle.main.url(forResource: "Images/medicinale", withExtension: "gif")
+                            
+                            if let attachment = try? UNNotificationAttachment(identifier: "image", url: url!, options: nil) {
+                                notification.attachments = [attachment]
+                            }
+
                             var finalDosaggio = Double()
                             
                             if medicinale.getDosaggioFisso() != 0{
                                 notification.body = "\(medicinale.getDosaggioFisso() ) - \(medicinale.getMisuraDosaggio())"
                             }
                                 
-                                //significa che il dosaggio è variabile
+                                //dosaggio variabile
+                                
                             else{
                                 let currentDate = Date()
                                 
@@ -51,6 +58,7 @@ class NewNotificationManager {
                                 for day in (medicinale.getDosaggioVariabile().keys){
                                     days.append(day)
                                 }
+                                
                                 //Ricorda di ordinare perchè quando li mette precedentemente nell'array vengono messi in disordine
                                 days.sort()
                                 
@@ -61,7 +69,7 @@ class NewNotificationManager {
                                     if c < days.count - 1 {
                                         
                                         
-                                        if currentDate.days(from_date: (paziente.getUltimaModifica())) >= day && currentDate.days(from_date: (paziente.getUltimaModifica())) < days[c + 1]{
+                                        if (currentDate.days(from_date: (paziente.getUltimaModifica())) + 1 >= day && currentDate.days(from_date: (paziente.getUltimaModifica())) + 1 < days[c + 1]){
                                             
                                             notification.body = "\(medicinale.getDosaggioVariabile()[day]!) - \(medicinale.getMisuraDosaggio() )"
                                             finalDosaggio = medicinale.getDosaggioVariabile()[day]!
@@ -92,11 +100,11 @@ class NewNotificationManager {
                                 
                                 dateComponents.weekday = specificDay
                                 
-                                print(specificDay)
+//                                print(specificDay)
                                 
                                 let dateFormatter = DateFormatter.init()
                                 
-                                dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+//                                dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
                                 
                                 dateFormatter.dateFormat = "HH"
                                 
@@ -108,12 +116,12 @@ class NewNotificationManager {
                         
                                 let notificationTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
                                 //let notificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
-                                //
-                                let lastDateFormatter = DateFormatter.init()
-                                lastDateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                let lastDate = lastDateFormatter.string(from: Date())
+                                
+//                                let lastDateFormatter = DateFormatter.init()
+//                                lastDateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+//                                let lastDate = lastDateFormatter.string(from: Date())
 
-                                let request = UNNotificationRequest(identifier: "\(terapiaFarmacologica.getCodice())-\(medicinale.getNome())-\(lastDate)-\(specificDay)", content: notification, trigger: notificationTrigger)
+                                let request = UNNotificationRequest(identifier: "\(terapiaFarmacologica.getCodice())-\(medicinale.getNome())-\(dateComponents.hour ?? 12):\(dateComponents.minute ?? 00)-\(specificDay)", content: notification, trigger: notificationTrigger)
                                 
                                 // Schedule the request.
                                 let center = UNUserNotificationCenter.current()
@@ -139,6 +147,19 @@ class NewNotificationManager {
                         notification.badge = 1
                         
                         notification.categoryIdentifier = "actionCategory"
+                        
+                        let url = Bundle.main.url(forResource: "Images/medicinale", withExtension: "gif")
+                        
+                        if let attachment = try? UNNotificationAttachment(identifier: "image", url: url!, options: nil) {
+                            notification.attachments = [attachment]
+                        }
+                        
+                        if CoreDataController.shared.existsImageFromName(nameImage: medicinale.getNome()){
+                            
+                            notification.userInfo = ["image" : CoreDataController.shared.loadImageFromName(nameImage: medicinale.getNome())]
+                            
+                        }
+                        
                         
                         var finalDosaggio = Double()
                         
@@ -166,7 +187,7 @@ class NewNotificationManager {
                                 if c < days.count - 1 {
                                     
                                     
-                                    if currentDate.days(from_date: (paziente.getUltimaModifica())) >= day && currentDate.days(from_date: (paziente.getUltimaModifica())) < days[c + 1]{
+                                    if (currentDate.days(from_date: (paziente.getUltimaModifica())) + 1 >= day && currentDate.days(from_date: (paziente.getUltimaModifica())) + 1 < days[c + 1]){
                                         
                                         notification.body = "\(medicinale.getDosaggioVariabile()[day]!) - \(medicinale.getMisuraDosaggio() )"
                                         finalDosaggio = medicinale.getDosaggioVariabile()[day]!
@@ -194,19 +215,18 @@ class NewNotificationManager {
                             
                             var dateComponents = DateComponents()
                             
-                            dateComponents.timeZone = TimeZone(abbreviation: "GMT")
+//                            dateComponents.timeZone = TimeZone(abbreviation: "GMT")
                             
                             dateComponents.weekday = specificDay
                             
-                            dateComponents.hour = 12
+                            dateComponents.hour = 16
                             
-                            dateComponents.minute = 00
-                            
+                            dateComponents.minute = 25
+                          
                             let notificationTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
                             //let notificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
 
                             let request = UNNotificationRequest(identifier: "\(terapiaFarmacologica.getCodice())-\(medicinale.getNome())-\(dateComponents.hour ?? 12)-\(dateComponents.minute ?? 0)-\(specificDay)", content: notification, trigger: notificationTrigger)
-                       
                             
                             // Schedule the request.
                             let center = UNUserNotificationCenter.current()
@@ -234,6 +254,18 @@ class NewNotificationManager {
                             
                             notification.categoryIdentifier = "actionCategory"
                             
+                            let url = Bundle.main.url(forResource: "Images/medicinale", withExtension: "gif")
+                            
+                            if let attachment = try? UNNotificationAttachment(identifier: "image", url: url!, options: nil) {
+                                notification.attachments = [attachment]
+                            }
+                            
+                            if CoreDataController.shared.existsImageFromName(nameImage: medicinale.getNome()){
+
+                                notification.userInfo = ["image" : CoreDataController.shared.loadImageFromName(nameImage: medicinale.getNome())]
+
+                            }
+                            
                             var finalDosaggio = Double()
                             
                             if medicinale.getDosaggioFisso() != 0{
@@ -260,7 +292,7 @@ class NewNotificationManager {
                                     if c < days.count - 1 {
                                         
                                         
-                                        if currentDate.days(from_date: (paziente.getUltimaModifica())) >= day && currentDate.days(from_date: (paziente.getUltimaModifica())) < days[c + 1]{
+                                        if (currentDate.days(from_date: (paziente.getUltimaModifica())) + 1 >= day && currentDate.days(from_date: (paziente.getUltimaModifica())) + 1 < days[c + 1]){
                                             
                                             notification.body = "\(medicinale.getDosaggioVariabile()[day]!) - \(medicinale.getMisuraDosaggio() )"
                                             finalDosaggio = medicinale.getDosaggioVariabile()[day]!
@@ -392,5 +424,7 @@ class NewNotificationManager {
     }
     
 }
+
+
 
 

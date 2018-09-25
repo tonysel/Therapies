@@ -12,7 +12,7 @@ import NotificationCenter
 class CreateSOSViewController: UIViewController, FBManagerDelegate{
     func onSuccess() {
         let sweetAlert = SweetAlert.init()
-        sweetAlert.showAlert("Success",subTitle: "La tua risposta è stata inoltrata con successo", style: .success)
+        debugPrint(sweetAlert.showAlert("Success",subTitle: "La tua risposta è stata inoltrata con successo", style: .success))
         sweetAlert.animateAlert()
     }
     
@@ -61,7 +61,7 @@ class CreateSOSViewController: UIViewController, FBManagerDelegate{
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if ((notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-            if self.view.frame.origin.y != 0{
+            if self.view.frame.origin.y >= 0{
                 self.view.frame.origin.y -= 155
                 
             }
@@ -70,7 +70,7 @@ class CreateSOSViewController: UIViewController, FBManagerDelegate{
     
     @objc func keyboardWillHide(notification: NSNotification) {
         if ((notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-            if self.view.frame.origin.y != 0{
+            if self.view.frame.origin.y <= 0{
                 self.view.frame.origin.y += 155
   
             }

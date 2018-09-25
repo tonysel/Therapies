@@ -8,29 +8,54 @@
 
 import UIKit
 
-class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PopUpViewControllerDelegate {
+class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PopUpViewControllerDelegate{
     
     var popUp : PopUpViewController?
+    
+    var enableContentView = false
+    
+    var panGesture = UIPanGestureRecognizer()
     
     @IBOutlet weak var blurView: UIVisualEffectView!
     
     func onCancel() {
-
-        self.contentView.willRemoveSubview((popUp?.view)!)
-        self.popUp?.dismiss(animated: true, completion: nil)
-        self.contentView.isHidden = true
-        self.blurView.isHidden = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.contentView.frame.origin.y = self.contentView.frame.origin.y - self.view.frame.height/2 - self.contentView.frame.height/3
+            self.blurView.alpha = 0
+        }, completion: {(_) in
+            
+//            self.contentView.willRemoveSubview((self.popUp?.view)!)
+//            self.popUp?.dismiss(animated: true, completion: nil)
+            
+            self.contentView.isHidden = true
+            self.blurView.isHidden = true
+            self.popUp?.imageView.removeFromSuperview()
+            self.popUp?.textLabel.removeFromSuperview()
+            self.popUp?.cancelButton.removeFromSuperview()
+            self.popUp?.view.removeFromSuperview()
+            self.enableContentView = false
+        
+        })
+        
     }
 
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setGradientBackground()
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(HistoryViewController.draggedView(_:)))
+        contentView.isUserInteractionEnabled = true
+        contentView.addGestureRecognizer(panGesture)
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func draggedView(_ sender:UIPanGestureRecognizer){
+        self.view.bringSubview(toFront: contentView)
+        let translation = sender.translation(in: self.view)
+        contentView.center = CGPoint(x: contentView.center.x + translation.x, y: contentView.center.y + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.view)
     }
     
     func setGradientBackground() {
@@ -62,7 +87,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         else{
             selectedSegment = 2
-            self.tableView.allowsSelection = false
+            self.tableView.allowsSelection = true
             self.tableView.reloadData()
         }
     }
@@ -239,25 +264,25 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
 //
 //        return stringDate
 //    }
+  
     
-    
-    func tableView(_ tableView: UITableView!, cellForRowAt indexPath: IndexPath!) -> UITableViewCell!{
-        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyTherapyViewCell", for: indexPath) as! HistoryTherapyViewCell
-        
+
         if selectedSegment == 1{
-            
+
             let medicinaleWithTime = dictTerFarm[indexPath.section]![indexPath.row]
-            
+
             cell.nameMedicine.text = medicinaleWithTime.nome
-            
+
             let dateFormatter = DateFormatter.init()
             dateFormatter.dateFormat = "HH:mm"
-            
+
             if medicinaleWithTime.tipoOrario == "orario_esatto"{
                 cell.timeLab.text = dateFormatter.string(from: (medicinaleWithTime.time! as Date))
                 cell.ripMedicine.text = ""
-                
+
             }
             else if medicinaleWithTime.tipoOrario == "orario_libero"{
                 cell.timeLab.text = "Orario libero"
@@ -268,26 +293,28 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.ripMedicine.text = ""
             }
             cell.qtaMedicine.text = "\(medicinaleWithTime.dosaggio) \(medicinaleWithTime.misuraDosaggio ?? "pillole")"
+
             cell.imageCell.image = UIImage(data: CoreDataController.shared.loadImageFromName(nameImage: medicinaleWithTime.nome!))
-            cell.imageCell.layer.shadowColor = UIColor.black.cgColor
-            cell.imageCell.layer.shadowOpacity = 1
             
+            cell.imageCell.layer.shadowColor = UIColor.black.cgColor
+            cell.imageCell.layer.shadowOpacity = 0.3
+
             cell.qtaMedicine.isHidden = false
         }
-            
+
         else if selectedSegment == 2{
-            
+
             let terNonFarmWithTime = dictTerNonFarm[indexPath.section]![indexPath.row]
-            
+
             cell.nameMedicine.text = terNonFarmWithTime.nome
-            
+
             let dateFormatter = DateFormatter.init()
             dateFormatter.dateFormat = "HH:mm"
-            
+
             if terNonFarmWithTime.tipoOrario == "orario_esatto"{
                 cell.timeLab.text = dateFormatter.string(from: (terNonFarmWithTime.time! as Date))
                 cell.ripMedicine.text = ""
-                
+
             }
             else if terNonFarmWithTime.tipoOrario == "orario_libero"{
                 cell.timeLab.text = "Orario libero"
@@ -297,7 +324,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.timeLab.text = "\(terNonFarmWithTime.orario ?? "nil") \(terNonFarmWithTime.quando ?? "nil")"
                 cell.ripMedicine.text = ""
             }
-            
+
             if terNonFarmWithTime.nome == "Controllo glicemia"{
                 if terNonFarmWithTime.value != 0{
                     cell.qtaMedicine.text = "\(terNonFarmWithTime.value) mg/dL"
@@ -308,7 +335,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 cell.imageCell.image = #imageLiteral(resourceName: "syringe")
             }
-            
+
             else if terNonFarmWithTime.nome == "Controllo peso"{
                 if terNonFarmWithTime.value != 0{
                     cell.qtaMedicine.text = "\(terNonFarmWithTime.value) Kg"
@@ -319,7 +346,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 cell.imageCell.image = #imageLiteral(resourceName: "scale")
             }
-            
+
             else{
                 if terNonFarmWithTime.value != 0{
                     cell.qtaMedicine.text = "\(terNonFarmWithTime.value)"
@@ -330,12 +357,15 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 cell.imageCell.image = #imageLiteral(resourceName: "water")
             }
-        
+
             cell.imageCell.layer.shadowColor = UIColor.black.cgColor
-            cell.imageCell.layer.shadowOpacity = 1
+            cell.imageCell.layer.shadowOpacity = 0.5
         }
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.27
+
         return cell
-        
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -386,43 +416,37 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var contentView: UIView!
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-////        self.modalViewController?.modalPresentationStyle = .overCurrentContext
-////        self.presentViewController(modalViewController!, animated: true, completion: nil)
-////        self.modalPresentationStyle = .overCurrentContext
-//
-////        self.addChildViewController(UIViewController.I)
-//
-//        if segue.identifier == "specificImageSegue"{
-//
-//            print("cliccato")
-//
-//            let indexPath = self.tableView.indexPathForSelectedRow!
-//            if(selectedSegment == 1){
-//
-////                let popUp = storyboard?.instantiateViewController(withIdentifier: "popUpViewController")
-////                self.addChildViewController(popUp!)
-//
-//                //make sure that the child view controller's view is the right size
-////                popUp?.view.frame = contentView.bounds
-////                self.contentView.addSubview((popUp?.view)!)
-//                self.contentView.isHidden = false
-//
-//                //you must call this at the end per Apple's documentation
-////                popUp?.didMove(toParentViewController: self)
-//
-//
-//                let vcDestination = segue.destination as! PopUpViewController
-//                vcDestination.image = UIImage(data: CoreDataController.shared.loadImageFromName(nameImage: self.dictTerFarm[indexPath.section]![indexPath.row].nome!))!
-//            }
-//            self.tableView.deselectRow(at: indexPath, animated: true)
-//        }
-//
-//    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "historyTherapyViewCell", for: indexPath) as! HistoryTherapyViewCell
+        
             if (selectedSegment == 1){
+                
+//                let customView = UIView()
+//
+//                customView.frame.size = CGSize(width: 275, height: 331)
+//
+//                customView.frame.origin.y = -450
+//
+//                customView.translatesAutoresizingMaskIntoConstraints = false
+
+//                self.view.layer.insertSublayer(contentView.layer, at: 1)
+                
+//                let horizontalConstraint = NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
+//                let verticalConstraint = NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: -414)
+//
+//                NSLayoutConstraint.activate([horizontalConstraint, verticalConstraint])
+                
+//                let horizontalConstraint = NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
+//                let verticalConstraint = NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: -40)
+//                let widthConstraint = NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1, constant: 275)
+//                let heightConstraint = NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 331)
+//
+//                NSLayoutConstraint.activate([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
+//                self.contentView.addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
+//
+                self.enableContentView = true
                 
                 let popUp = storyboard?.instantiateViewController(withIdentifier: "popUpViewController") as! PopUpViewController
                 
@@ -431,28 +455,100 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.popUp?.delegate = self
                 
                 self.tableView.deselectRow(at: indexPath, animated: true)
-//                popUp.modalPresentationStyle = .formSheet
+                //                popUp.modalPresentationStyle = .formSheet
                 self.popUp?.image = UIImage(data: CoreDataController.shared.loadImageFromName(nameImage: self.dictTerFarm[indexPath.section]![indexPath.row].nome!))!
                 self.addChildViewController(popUp)
                 
-                //make sure that the child view controller's view is the right size
-                self.popUp?.view.frame = contentView.bounds
-
-                self.contentView.addSubview((popUp.view)!)
-                self.blurView.isHidden = false
+                self.popUp?.textLabel.text = "\(self.dictTerFarm[indexPath.section]![indexPath.row].nome!)\n\nCodice Medicinale: \(self.dictTerFarm[indexPath.section]![indexPath.row].codiceMed!)\n\nCodice Terapia: \(self.dictTerFarm[indexPath.section]![indexPath.row].codiceTer!)\n\nDosaggio assunto: \(self.dictTerFarm[indexPath.section]![indexPath.row].dosaggio)"
                 
+                //make sure that the child view controller's view is the right size
+                self.popUp?.view.frame = self.contentView.bounds
+                
+                self.contentView.addSubview((popUp.view)!)
+                
+                self.blurView.isHidden = false
+        
+                self.blurView.alpha = 0
+              
                 self.contentView.isHidden = false
+                
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.blurView.alpha = 1
+                }, completion: {(_) in
+
+                })
+                
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.contentView.frame.origin.y = self.contentView.frame.origin.y + self.view.frame.height/2 + self.contentView.frame.height/3
+                }, completion: {(_) in
+                    
+                    //you must call this at the end per Apple's documentation
+                    popUp.didMove(toParentViewController: self)
+
+                })
+            
+            }
+        
+        if(selectedSegment == 2){
+            
+            self.enableContentView = true
+            
+            let popUp = storyboard?.instantiateViewController(withIdentifier: "popUpViewController") as! PopUpViewController
+            
+            self.popUp = popUp
+            
+            self.popUp?.delegate = self
+            
+            self.tableView.deselectRow(at: indexPath, animated: true)
+            //                popUp.modalPresentationStyle = .formSheet
+            let cell = self.tableView.cellForRow(at: indexPath) as? HistoryTherapyViewCell
+            self.popUp?.image = (cell?.imageCell.image)!
+            self.addChildViewController(popUp)
+            
+            self.popUp?.textLabel.text = "\(self.dictTerNonFarm[indexPath.section]![indexPath.row].nome!)\n\n\nCodice Terapia: \(self.dictTerNonFarm[indexPath.section]![indexPath.row].codiceTer!)\n\nValore registrato: \(self.dictTerNonFarm[indexPath.section]![indexPath.row].value) \(self.dictTerFarm[indexPath.section]![indexPath.row].misuraDosaggio)"
+            
+            //make sure that the child view controller's view is the right size
+            self.popUp?.view.frame = self.contentView.bounds
+            
+            self.contentView.addSubview((popUp.view)!)
+            
+            self.blurView.isHidden = false
+            
+            self.blurView.alpha = 0
+            
+            self.contentView.isHidden = false
+            
+            UIView.animate(withDuration: 0.4, animations: {
+                self.blurView.alpha = 1
+            }, completion: {(_) in
+                
+            })
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.contentView.frame.origin.y = self.contentView.frame.origin.y + self.view.frame.height/2 + self.contentView.frame.height/3
+            }, completion: {(_) in
                 
                 //you must call this at the end per Apple's documentation
                 popUp.didMove(toParentViewController: self)
-            }
+                
+            })
+            
+        }
+
 
         }
 
-    // MARK: - Table view delegate
+    // MARK: - height cell table view
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        if enableContentView{
+            self.onCancel()
+        }
     }
     
 

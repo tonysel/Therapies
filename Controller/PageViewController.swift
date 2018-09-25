@@ -2,7 +2,7 @@
 //  PageViewController.swift
 //  Tesi
 //
-//  Created by TonySellitto on 14/04/18.
+//  Created by TonySellitto on 16/05/18.
 //  Copyright © 2018 TonySellitto. All rights reserved.
 //
 
@@ -10,29 +10,29 @@ import UIKit
 
 class PageViewController: UIViewController, UIPageViewControllerDataSource {
     
-
+    
     
     var pageViewController : UIPageViewController?
-//    let contentImages = ["gauge","first","second","gauge"]
+    //    let contentImages = ["gauge","first","second"]
     let contentText = ["Benvenuto.\nTherapieSafe ti aiuterà a ricordare le terapie fornite dal tuo medico.", "Quest'ultimo assegna il tuo piano di trattamento e ti fornisce un semplice qrCode personale da scannerizzare.", "Sarai in grado di:\nvedere le terapie da fare entro una settimana e quelle già fatte;\n                           ricevere notifiche;\ninviare un sos silenzioso in qualsiasi momento al proprio medico.", "Inizia scannerizzando il qrCode a te assegnato"]
     
-//    var backgroundImage : [UIImage?] = [ #imageLiteral(resourceName: "simbols"),#imageLiteral(resourceName: "simbols3"), #imageLiteral(resourceName: "simbols2") , nil ]
+    //    var backgroundImage : [UIImage?] = [ #imageLiteral(resourceName: "simbols"),#imageLiteral(resourceName: "simbols3"), #imageLiteral(resourceName: "simbols2") , nil ]
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         
-//        guard let vcIndex = viewControllerList.index(of: viewController) else{return nil}
-//
-//        let previousIndex = vcIndex - 1
-//
-//        guard previousIndex >= 0 else{return nil}
-//
-//        guard viewControllerList.count > previousIndex else{return nil}
-//
-//        return viewControllerList[previousIndex]
-       
+        //        guard let vcIndex = viewControllerList.index(of: viewController) else{return nil}
+        //
+        //        let previousIndex = vcIndex - 1
+        //
+        //        guard previousIndex >= 0 else{return nil}
+        //
+        //        guard viewControllerList.count > previousIndex else{return nil}
+        //
+        //        return viewControllerList[previousIndex]
+        
         let itemController = viewController as! ItemViewController
-      
+        
         if itemController.itemIndex > 0{
             return getItemController(itemController.itemIndex - 1)
         }
@@ -40,36 +40,36 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
         return nil
     }
     
-    func currentControllerIndex() -> Int{
-        let pageItemController = self.currentControllerIndex()
-        if let controller = pageItemController as? ItemViewController{
-            return controller.itemIndex
-        }
-        return -1
-    }
+    //    func currentControllerIndex() -> Int{
+    //        let pageItemController = self.currentControllerIndex()
+    //        if let controller = pageItemController as? ItemViewController{
+    //            return controller.itemIndex
+    //        }
+    //        return -1
+    //    }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-      
+        
         
         let itemController = viewController as! ItemViewController
-
-            if itemController.itemIndex + 1 < contentText.count{
-                return getItemController(itemController.itemIndex + 1)
-            }
-
+        
+        if itemController.itemIndex + 1 < contentText.count{
+            return getItemController(itemController.itemIndex + 1)
+        }
+        
         return nil
         
         
         
-//        guard let vcIndex = viewControllerList.index(of: viewController) else{return nil}
-//
-//        let nextIndex = vcIndex + 1
-//
-//        guard viewControllerList.count != nextIndex else{return nil}
-//
-//        guard viewControllerList.count > nextIndex else{return nil}
-//
-//        return viewControllerList[nextIndex]
+        //        guard let vcIndex = viewControllerList.index(of: viewController) else{return nil}
+        //
+        //        let nextIndex = vcIndex + 1
+        //
+        //        guard viewControllerList.count != nextIndex else{return nil}
+        //
+        //        guard viewControllerList.count > nextIndex else{return nil}
+        //
+        //        return viewControllerList[nextIndex]
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
@@ -90,7 +90,7 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
     }
     
     func getItemController(_ itemIndex : Int) -> UIViewController?{
-      
+        
         let colorTop =  UIColor(red: 48.0/255.0, green: 210.0/255.0, blue: 190.0/255.0, alpha: 1).cgColor
         let colorBottom = UIColor(red: 52.0/255.0, green: 147.0/255.0, blue: 196.0/255.0, alpha: 1).cgColor
         
@@ -105,20 +105,20 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
         let pageItemController = self.storyboard?.instantiateViewController(withIdentifier: "ItemController") as! ItemViewController
         
         if itemIndex < contentText.count - 1{
-          
+            
             
             pageItemController.messageStartButton = "Skip Intro"
             //pageItemController.startButtonVisible = false
- 
+            
             
             pageItemController.itemIndex = itemIndex
-  //          pageItemController.imageName = contentImages[itemIndex]
+            //          pageItemController.imageName = contentImages[itemIndex]
             pageItemController.label = contentText[itemIndex]
-  
-        //pageItemController.text.font =  UIFont.systemFont(ofSize: 19, weight: .regular)
+            
+            //pageItemController.text.font =  UIFont.systemFont(ofSize: 19, weight: .regular)
             
             let bgImageView = UIImageView(frame: self.view.frame)
-   //         bgImageView.image = backgroundImage[itemIndex]
+            //         bgImageView.image = backgroundImage[itemIndex]
             bgImageView.contentMode = .scaleAspectFill
             bgImageView.alpha = 0.6
             //bgImageView.sizeToFit()
@@ -134,39 +134,24 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
         
         if itemIndex == contentText.count - 1{
             
-           pageItemController.itemIndex = itemIndex
-    
-  
-        
-//            let pageItemController = self.storyboard?.instantiateViewController(withIdentifier: "qrCodeController") as! ViewController
-//
-//
-             pageItemController.messageStartButton = "Start"
-//            //pageItemController.startButtonVisible = true
-//            //pageItemController.beginnerButtonVisible = true
-//            //pageItemController.expertButtonVisible = true
-//            pageItemController.itemIndex = itemIndex
-  //          pageItemController.imageName = contentImages[itemIndex]
+            pageItemController.itemIndex = itemIndex
+            
+            
+            pageItemController.messageStartButton = "Start"
+            
             pageItemController.label = contentText[itemIndex]
-            //pageItemController.text.font =  UIFont.systemFont(ofSize: 19, weight: .regular)
-
+            
             let bgImageView = UIImageView(frame: self.view.frame)
- //           bgImageView.image = backgroundImage[itemIndex]
+            
             bgImageView.contentMode = .scaleAspectFill
-
-            //          pageItemController.view.insertSubview(bgImageView, at: 0)
-
+            
             bgImageView.alpha = 0.6
-            //bgImageView.sizeToFit()
-
+            
             gradientLayer.frame = pageItemController.view.bounds
-
+            
             pageItemController.view.layer.insertSublayer(gradientLayer, at: 0)
-
+            
             pageItemController.view.insertSubview(bgImageView, at: 1)
-
-
-
             
             return pageItemController
         }
@@ -223,7 +208,7 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
     }
     
     func setupPageControl(){
-     
+        
         let colorAppaerence =  UIColor(red: 52.0/255.0, green: 147.0/255.0, blue: 196.0/255.0, alpha: 1)
         let colorBottom =  UIColor(red: 48.0/255.0, green: 210.0/255.0, blue: 190.0/255.0, alpha: 1).cgColor
         let colorTop = UIColor(red: 52.0/255.0, green: 147.0/255.0, blue: 196.0/255.0, alpha: 1).cgColor

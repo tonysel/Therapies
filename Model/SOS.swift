@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SOS{
+public class SOS{
 
     public var time: Date
     private var nota: String

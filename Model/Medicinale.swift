@@ -10,7 +10,6 @@ import UIKit
 
 public class Medicinale{
     
-    
     private var nome: String
     private var codice : String
     private var misuraDosaggio : String

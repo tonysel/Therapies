@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension Date{
+extension Date{
     func  getWeekDay(specificDate: Date) -> Int {
         let calendar: Calendar = Calendar.current
         let component  = calendar.component(Calendar.Component.weekday, from: specificDate)

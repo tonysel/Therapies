@@ -7,34 +7,34 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>1044891979681-2i90sgmrhqg6tdtfj03e6qlbn1m2pen6.apps.googleusercontent.com</string>
+	<string>587394401308-c36pe4o7caljku304ion08ar22ga3ihj.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1044891979681-2i90sgmrhqg6tdtfj03e6qlbn1m2pen6</string>
+	<string>com.googleusercontent.apps.587394401308-c36pe4o7caljku304ion08ar22ga3ihj</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCrDqG14hjmOd9jGMoOiduW7eXxqpavpIo</string>
+	<string>AIzaSyBHZMyFpbsxLI8skv1jTlnSSJgvw-RYZTw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1044891979681</string>
+	<string>587394401308</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.sellitto</string>
+	<string>com.sellitto.Tesi</string>
 	<key>PROJECT_ID</key>
-	<string>medisafe-e7b3a</string>
+	<string>medalarm-f2368</string>
 	<key>STORAGE_BUCKET</key>
-	<string>medisafe-e7b3a.appspot.com</string>
+	<string>medalarm-f2368.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<true/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1044891979681:ios:70f5b99bfa1b2b1d</string>
+	<string>1:587394401308:ios:535c08099b4598cf</string>
 	<key>DATABASE_URL</key>
-	<string>https://medisafe-e7b3a.firebaseio.com</string>
+	<string>https://medalarm-f2368.firebaseio.com</string>
 </dict>
 </plist>

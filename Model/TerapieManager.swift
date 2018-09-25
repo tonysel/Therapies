@@ -13,7 +13,7 @@ class TerapieManager{
     public static func createTerapieFarmacologicheInWeek(paziente: Paziente) -> [Int: [MedicinaleWithTime]]{
         
         var dictTerFarm = [Int: [MedicinaleWithTime]]()
-        //i sette giorni della settimana
+        //sette giorni della settimana
         for i in 0...6{
             
             let date = Date(timeIntervalSinceNow: TimeInterval(i * 86400))
@@ -90,7 +90,7 @@ class TerapieManager{
                                         if c < days.count - 1 {
                                             
                                             
-                                            if finalTime!.days(from_date: (medicinaleWithTime.getUltimaModifica())) >= day && finalTime!.days(from_date: (medicinaleWithTime.getUltimaModifica())) < days[c + 1]{
+                                            if (finalTime!.days(from_date: (medicinaleWithTime.getUltimaModifica())) + 1 >= day && finalTime!.days(from_date: (medicinaleWithTime.getUltimaModifica())) + 1 < days[c + 1]){
                                                 
                                                 
                                                 medicinaleWithTime.aggiungiDosaggio(dosaggio: medicinaleWithTime.getMedicinale().getDosaggioVariabile()[day]!)
@@ -178,7 +178,7 @@ class TerapieManager{
                                             if c < days.count - 1 {
                                                 
                                                 
-                                                if finalTime!.days(from_date: (medicinaleWithTime.getUltimaModifica())) >= day && finalTime!.days(from_date: (medicinaleWithTime.getUltimaModifica())) < days[c + 1]{
+                                                if (finalTime!.days(from_date: (medicinaleWithTime.getUltimaModifica())) + 1 >= day && finalTime!.days(from_date: (medicinaleWithTime.getUltimaModifica())) + 1 < days[c + 1]){
                                                     
                                                     
                                                     medicinaleWithTime.aggiungiDosaggio(dosaggio: medicinaleWithTime.getMedicinale().getDosaggioVariabile()[day]!)
@@ -328,7 +328,7 @@ class TerapieManager{
                                             
 //                                            print(finalTime.days(from_date: (medicinaleWithTime.getUltimaModifica())))
                                             
-                                            if finalTime.days(from_date: (medicinaleWithTime.getUltimaModifica())) >= day && finalTime.days(from_date: (medicinaleWithTime.getUltimaModifica())) < days[c + 1]{
+                                            if (finalTime.days(from_date: (medicinaleWithTime.getUltimaModifica())) + 1 >= day && finalTime.days(from_date: (medicinaleWithTime.getUltimaModifica())) + 1 < days[c + 1]){
                                                 
                                                 
                                                 medicinaleWithTime.aggiungiDosaggio(dosaggio: medicinaleWithTime.getMedicinale().getDosaggioVariabile()[day]!)

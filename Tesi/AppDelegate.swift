@@ -17,7 +17,7 @@ import FirebaseMessaging
 import SystemConfiguration
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate{
+class AppDelegate: UIResponder, UIApplicationDelegate{
     
     var window: UIWindow?
     
@@ -27,9 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     let fbManager = FBManager()
     
-    var audioPlayer: AVAudioPlayer?
-    
-    func applicationDidBecomeActive(_ application: UIApplication) {
+    public func applicationDidBecomeActive(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
     }
 
@@ -49,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
         
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (authorized:Bool, error:Error?) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (authorized:Bool, error:Error?) in
             if !authorized {
                 print("App is useless because you did not allow notifications.")
             }
@@ -57,7 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // Define Actions
 //        let doneAction = UNNotificationAction(identifier: "done", title: "Done", options: [])
-        let sosAction = UNNotificationAction(identifier: "sos", title: "SOS", options: [])
+//        let sosAction = UNNotificationAction(identifier: "sos", title: "SOS", options: [.foreground])
+        let sosAction = UNNotificationAction(identifier: "sos", title: "SOS", options: [.foreground])
         
         // Add actions
         let category = UNNotificationCategory(identifier: "actionCategory", actions: [sosAction], intentIdentifiers: [], options: [])
@@ -70,110 +69,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
         UNUserNotificationCenter.current().delegate = self
-//
+
 //        if UserDefaults.standard.bool(forKey: "notFirstTime") == true{
 //
 //            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
 //
 //        }
-////
-//        UNUserNotificationCenter.current().getPendingNotificationRequests{requests -> () in
-//            print("\(requests.count) requests -------")
-//            for request in requests{
-//                print(request.identifier)
-//                print(request.trigger)
-//            }
-//        }
         
         return true
     }
     
-   
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-//      let fbManager = FBManager()
-        
-//      let medicineItem = MedicinaleWithTimeCore(context: persistentContainer.viewContext)
-
-//      CoreDataController.shared.loadMedicinaleWithOrarioLiberoFromId(id: response.notification.request.identifier)
-        
-//        var strings = response.notification.request.identifier
-        
-        // Significa che è stato premuto SOS
-    
-        if response.actionIdentifier == "sos" {
-            
-            fbManager.aggiungiRichiestaAiuto(medico: (paziente?.getMedicoControllo())!, codice: qrCode!, nota: response.notification.request.identifier)
-            
-        }
-//        else{ // Significa che è stato premuto SOS
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 //
-//            fbManager.aggiungiRichiestaAiuto(medico: (paziente?.getMedicoControllo())!, codice: qrCode!, nota: "SOS")
+////      let fbManager = FBManager()
 //
-//        }
-        
-//        self.saveContext()
-//        scheduleNotification()
-        
-        completionHandler()
-        
-    }
-    
-    //serve per ricevere notifiche quando l'app è in foreground
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
-    {
-        completionHandler([.alert, .badge, .sound])
-    }
-        // Override point for customization after application launch.
-        
-//        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-//        actionSheet.view.tintColor = UIColor.black
-//        
-//        actionSheet.addAction(UIAlertAction(title: "Stop Alert", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
-//            
-//            
-//            self.audioPlayer?.stop()
-//        }))
-//        window?.rootViewController!.present(actionSheet, animated: true, completion: nil)
-        
-    //AlarmApplicationDelegate protocol
-//    func playSound(_ soundName: String) {
+////      let medicineItem = MedicinaleWithTimeCore(context: persistentContainer.viewContext)
 //
-//        //vibrate phone first
-//        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-//        //set vibrate callback
-//        AudioServicesAddSystemSoundCompletion(SystemSoundID(kSystemSoundID_Vibrate),nil,
-//                                              nil,
-//                                              { (_:SystemSoundID, _:UnsafeMutableRawPointer?) -> Void in
-//                                                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-//        },
-//                                              nil)
-//        let url = URL(fileURLWithPath: Bundle.main.path(forResource: soundName, ofType: "mp3")!)
+////      CoreDataController.shared.loadMedicinaleWithOrarioLiberoFromId(id: response.notification.request.identifier)
 //
-//        var error: NSError?
-//
-//        do {
-//            audioPlayer = try AVAudioPlayer(contentsOf: url)
-//        } catch let error1 as NSError {
-//            error = error1
-//            audioPlayer = nil
+//        switch response.actionIdentifier {
+//             // Significa che è stato premuto SOS
+//        case "sos":
+//            fbManager.aggiungiRichiestaAiuto(medico: (paziente?.getMedicoControllo())!, codice: qrCode!, nota: response.notification.request.identifier)
+//        default:
+//            break
 //        }
 //
-//        if let err = error {
-//            print("audioPlayer error \(err.localizedDescription)")
-//            return
-//        } else {
-//            audioPlayer!.delegate = self
-//            audioPlayer!.prepareToPlay()
-//        }
 //
-//        //negative number means loop infinity
-//        audioPlayer!.numberOfLoops = -1
-//        audioPlayer!.play()
+////        self.saveContext()
+////        scheduleNotification()
+//
+//        completionHandler()
+//
 //    }
-  
-//
+
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -182,16 +113,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        
-        if UserDefaults.standard.bool(forKey: "notFirstTime") == true{
-            
-            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: CoreDataController.shared.loadAllPazienti()[0])
-            
-        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+       
     }
 
 //    func applicationDidBecomeActive(_ application: UIApplication) {
@@ -280,3 +206,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
 }
+
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+
+    //serve per ricevere notifiche quando l'app è in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        completionHandler([.alert, .badge, .sound])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        switch response.actionIdentifier {
+        // Significa che è stato premuto SOS
+        case "sos":
+            fbManager.aggiungiRichiestaAiuto(medico: (paziente?.getMedicoControllo())!, codice: qrCode!, nota: response.notification.request.identifier)
+        default:
+            break
+        }
+
+        
+
+    }
+
+}
+

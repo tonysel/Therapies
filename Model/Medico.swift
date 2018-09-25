@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Medico{
+public class Medico{
     private var codice : String
     private var nome : String
     private var cognome : String

@@ -15,10 +15,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let colorBottom = UIColor(red: 52.0/255.0, green: 147.0/255.0, blue: 196.0/255.0, alpha: 1).cgColor
         
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [ colorTop, colorBottom]
+        gradientLayer.colors = [colorTop, colorBottom]
         //gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
         //gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-        gradientLayer.locations = [ 0.0, 0.83]
+        gradientLayer.locations = [0.0, 0.83]
         gradientLayer.frame = self.view.bounds
         
         self.view.layer.insertSublayer(gradientLayer, at: 0)

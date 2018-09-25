@@ -8,11 +8,6 @@
 
 import UIKit
 
-extension Date{
-    func days(from_date: Date) -> Int {
-        return Calendar.current.dateComponents([.day], from: from_date, to: self).day ?? 0
-    }
-}
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FBManagerDelegate{
     
@@ -60,15 +55,20 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.isHidden = false
         self.activityIndicator.stopAnimating()
         self.activityIndicator.isHidden = true
+
+//        if UserDefaults.standard.bool(forKey: "notFirstTime") == true{
         
-//    non vi sono pending requests poichè è la prima volta dell'utilizzo dell'app
-//        NotificationManager.createNotificationsForTerapieFarmacologiche(paziente: (appDelegate?.paziente!)!)
+          //Old system of notifications
+//        DispatchQueue.main.async {
+//            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: (self.appDelegate?.paziente!)!)
+//        }
         
-        if UserDefaults.standard.bool(forKey: "notFirstTime") == true{
-            
-            NewNotificationManager.createNotificationsForTerapieFarmacologiche(paziente: (appDelegate?.paziente!)!)
-            
+        DispatchQueue.main.async {
+            NotificationManager.createNotificationsForTerapieFarmacologiche()
         }
+        
+//        }
+        
     }
     
     func onFailure() {
@@ -107,49 +107,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        self.navigationController?.navigationBar.barTintColor = .white
 //
 //        self.navigationController?.navigationBar.prefersLargeTitles = true
-//    }
-    
-//    func readIsFirstTimeLogin() -> Bool{
-//
-//        var format = PropertyListSerialization.PropertyListFormat.xml//format of the property list
-//        var plistData: [String:AnyObject] = [:]  //our data
-//        let plistPath:String? = Bundle.main.path(forResource: "data", ofType: "plist")! //the path of the data
-//        let plistXML = FileManager.default.contents(atPath: plistPath!)! //the data in XML format
-//        var isFirstTimeLogin = false
-//        do{
-//            //convert the data to a dictionary and handle errors.
-//            plistData = try PropertyListSerialization.propertyList(from: plistXML, options: .mutableContainersAndLeaves, format: &format) as! [String : AnyObject]
-//
-//            //assign the values in the dictionary to the properties
-//            isFirstTimeLogin = plistData["isFirstTimeLogin"] as! Bool
-//
-//        }
-//        catch{ // error condition
-//            print("Error reading plist: \(error), format: \(format)")
-//        }
-//
-//        return isFirstTimeLogin
-//    }
-    
-//    func readPropertyList(){
-//
-//        var format = PropertyListSerialization.PropertyListFormat.xml//format of the property list
-//        var plistData: [String:AnyObject] = [:]  //our data
-//        let plistPath:String? = Bundle.main.path(forResource: "data", ofType: "plist")! //the path of the data
-//        let plistXML = FileManager.default.contents(atPath: plistPath!)! //the data in XML format
-//        do{ //convert the data to a dictionary and handle errors.
-//
-//            plistData = try PropertyListSerialization.propertyList(from: plistXML, options: .mutableContainersAndLeaves, format: &format) as! [String : AnyObject]
-//
-//            //assign the values in the dictionary to the properties
-//            let isFirstTimeLogin = plistData["isFirstTimeLogin"] as! Bool
-//
-//            print("vediii benneeeee plist: \(isFirstTimeLogin)")
-//
-//        }
-//        catch{ // error condition
-//            print("Error reading plist: \(error), format: \(format)")
-//        }
 //    }
     
     @objc func populate(){
@@ -224,31 +181,48 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 7
     }
 
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    
+//    var countDownTimer : Timer!
+    var totalTime = 100
+    
+    
+    // MARK: - Timer
+//    func startTimer() {
+//        countDownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+//    }
 //
-//        let date = Date(timeIntervalSinceNow: TimeInterval(section * 86400))
+//    @objc func updateTime() {
+//        let cell = self.tableView.dequeueReusableCell(withIdentifier: "therapyCell") as! TherapyViewCell
+//        cell.timerLabel.text = "\(timeFormatted(totalTime))"
 //
-//        let dateFormatter = DateFormatter.init()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        let stringDate = dateFormatter.string(from: date)
+//        if totalTime != 0 {
+//            totalTime -= 1
+//        } else {
+//            endTimer()
 //
-//        return stringDate
+//        }
+//    }
+//
+//    func endTimer() {
+//        countDownTimer.invalidate()
 //    }
     
-    func tableView(_ tableView: UITableView!, cellForRowAt indexPath: IndexPath!) -> UITableViewCell!{
-        
+//    func timeFormatted(_ totalSeconds: Int) -> String {
+//        let seconds: Int = totalSeconds % 60
+//        //     let hours: Int = totalSeconds / 3600
+//        return String(format: "%02d", seconds)
+//    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "therapyCell", for: indexPath) as! TherapyViewCell
+//        let cell = TherapyViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "therapyCell")
         
         if isFinishedLoading && selectedSegment == 1{
-            
-            
             
             let medicinaleWithTime = dictTerFarm[indexPath.section]![indexPath.row]
             
             cell.ripMedicine.isHidden = false
-            
-//            print("ultimo passaggio: \(medicinaleWithTime.getMedicinale().getNome())")
             
             cell.nameMedicine.text = medicinaleWithTime.getMedicinale().getNome()
             
@@ -259,37 +233,101 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.timeLab.text = dateFormatter.string(from: (medicinaleWithTime.getTime()!))
                 if CoreDataController.shared.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!){
                     cell.ripMedicine.text =  "✅"
+                    cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                    cell.ripMedicine.textColor = .black
                 }
                 else{
                     cell.ripMedicine.text = ""
+                    cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                    cell.ripMedicine.textColor = .black
                 }
+                
             }
             else if medicinaleWithTime.getTipoOrario() == "orario_libero"{
                 cell.timeLab.text = "Orario libero"
                 if CoreDataController.shared.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!){
                     if medicinaleWithTime.getRipetizioni()! - Int(CoreDataController.shared.loadMedicinaleWithOrarioLiberoFromId(id: medicinaleWithTime.getId()!).ripetizioni) > 0{
                         cell.ripMedicine.text = "Ripetizioni mancanti: \(medicinaleWithTime.getRipetizioni()! - Int(CoreDataController.shared.loadMedicinaleWithOrarioLiberoFromId(id: medicinaleWithTime.getId()!).ripetizioni))"
+                        cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                        cell.ripMedicine.textColor = .black
                     }
                     else{
                         cell.ripMedicine.text =  "✅"
+                        cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                        cell.ripMedicine.textColor = .black
                     }
                 }
                 else{
                     cell.ripMedicine.text = "Ripetizioni mancanti: \(medicinaleWithTime.getRipetizioni() ?? 0)"
+                    cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                    cell.ripMedicine.textColor = .black
                 }
             }
             else{
                 cell.timeLab.text = "\(medicinaleWithTime.getOrarioApprossimato() ?? "nil") \(medicinaleWithTime.getQuandoApprossimato() ?? "nil")"
                 if CoreDataController.shared.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!){
                     cell.ripMedicine.text =  "✅"
+                    cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                    cell.ripMedicine.textColor = .black
                 }
                 else{
                     cell.ripMedicine.text = ""
+                    cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                    cell.ripMedicine.textColor = .black
                 }
             }
             cell.qtaMedicine.text = "\(medicinaleWithTime.getDosaggio() ?? 0) \(medicinaleWithTime.getMedicinale().getMisuraDosaggio())"
             cell.codTer.text = "Cod Ter : \(medicinaleWithTime.getCodiceTerapia() ?? "nil")"
+            
+//            let calendar = Calendar.init(identifier: .gregorian)
+            
+            let cd = CoreDataController()
+            
+            let currentDate = Date()
+            
+//            (currentDate.addingTimeInterval(-1200) <= medicinaleWithTime.getTime()! && medicinaleWithTime.getTime()! <= currentDate.addingTimeInterval(1200))
+            
+            if indexPath.section == 0{
+                if medicinaleWithTime.getTipoOrario() == "orario_libero"  && !cd.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!) || ((medicinaleWithTime.getTipoOrario() == "orario_esatto")  && !cd.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!) && (currentDate >= medicinaleWithTime.getTime()!.addingTimeInterval(-1200) && medicinaleWithTime.getTime()!.addingTimeInterval(1200) >= currentDate)) || ((medicinaleWithTime.getTipoOrario() == "orario_approssimato")  && !cd.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!) && (currentDate >= medicinaleWithTime.getTime()!.addingTimeInterval(-5400) && medicinaleWithTime.getTime()!.addingTimeInterval(5400) >= currentDate)){
+                    cell.customView.layer.borderWidth = 2.4
+                    cell.customView.layer.borderColor = UIColor(red: 240.0/255.0, green: 150.0/255.0, blue: 55.0/255.0, alpha: 0.8).cgColor
+                }
+                else if ((medicinaleWithTime.getTipoOrario() == "orario_esatto")  && !cd.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!) && (medicinaleWithTime.getTime()!.addingTimeInterval(1200) < currentDate)) || ((medicinaleWithTime.getTipoOrario() == "orario_approssimato")  && !cd.existsMedicinaleWithTimeFromId(id: medicinaleWithTime.getId()!) && (medicinaleWithTime.getTime()!.addingTimeInterval(5400) < currentDate)){
+                    cell.ripMedicine.text = "⚠︎"
+                    cell.ripMedicine.font = UIFont.boldSystemFont(ofSize: 25)
+                    cell.ripMedicine.textColor = .orange
+                    cell.customView.layer.borderWidth = 3
+                    cell.customView.layer.borderColor = UIColor(red: 22.0/255.0, green: 169.0/255.0, blue: 182.0/255.0, alpha: 0.8).cgColor
+                }
+                else{
+                    cell.customView.layer.borderWidth = 3
+                    
+                    cell.customView.layer.borderColor = UIColor(red: 22.0/255.0, green: 169.0/255.0, blue: 182.0/255.0, alpha: 0.8).cgColor
+                }
+                cell.clockImage.isHidden = false
+                cell.timerLabel.isHidden = true
+            }
+            else{
+                cell.customView.layer.borderWidth = 0
+                cell.clockImage.isHidden = false
+                cell.timerLabel.isHidden = true
+            }
 
+//            let analogClock = AnalogClockView(view: cell.clockImage!)
+//
+//            analogClock.hours = calendar.component(.hour, from: medicinaleWithTime.getTime()! )
+//            analogClock.minutes = calendar.component(.minute, from: medicinaleWithTime.getTime()! )
+//            cell.clockImage.addSubview(analogClock)
+            
+//            cell.clockImage.hours = calendar.component(.hour, from: medicinaleWithTime.getTime()! )
+//            cell.clockImage.minutes = calendar.component(.minute, from: medicinaleWithTime.getTime()! )
+            
+//            cell.draw(CGRect(origin: CGPoint.zero, size: CGSize(width: 56, height: 56)))
+            
+//            cell.clockImage = AnalogClockView(hours: calendar.component(.hour, from: medicinaleWithTime.getTime()!), minutes: calendar.component(.minute, from: medicinaleWithTime.getTime()!), view: UIView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 56, height: 56))))
+    
+//            }
+        
 //            cell.qtaMedicine.isHidden = false
         }
             
@@ -298,7 +336,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             let terapiaNonFarmacologicaWithTime = dictTerNonFarm[indexPath.section]![indexPath.row]
             
             cell.nameMedicine.text = terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getNome()
-            
+        
             let dateFormatter = DateFormatter.init()
             dateFormatter.dateFormat = "HH:mm"
             if terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_esatto"{
@@ -311,10 +349,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         cell.qtaMedicine.text = ""
                     }
                     cell.ripMedicine.text =  "✅"
+                    cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                    cell.ripMedicine.textColor = .black
                 }else{
                     cell.qtaMedicine.text = ""
                     cell.ripMedicine.text =  ""
+                    cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                    cell.ripMedicine.textColor = .black
                 }
+            
             }
             else if terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_libero"{
                 cell.timeLab.text = "Orario libero"
@@ -322,16 +365,23 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     if  terapiaNonFarmacologicaWithTime.getRipetizioni()! - Int(CoreDataController.shared.loadTerNonFarmWithOrarioLiberoFromId(id: terapiaNonFarmacologicaWithTime.getId()!).ripetizioni) > 0{
                         cell.ripMedicine.text = "Ripetizioni mancanti: \(terapiaNonFarmacologicaWithTime.getRipetizioni()! - Int(CoreDataController.shared.loadTerNonFarmWithOrarioLiberoFromId(id: terapiaNonFarmacologicaWithTime.getId()!).ripetizioni))"
                         cell.qtaMedicine.text = ""
+                        cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                        cell.ripMedicine.textColor = .black
                     }
                     else{
                         cell.ripMedicine.text =  "✅"
+                        cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
                         cell.qtaMedicine.text = ""
+                        cell.ripMedicine.textColor = .black
                     }
                 }
                 else{
                     cell.ripMedicine.text = "Ripetizioni mancanti: \(terapiaNonFarmacologicaWithTime.getRipetizioni() ?? 0)"
+                    cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
                     cell.qtaMedicine.text = ""
+                    cell.ripMedicine.textColor = .black
                 }
+                
             }
             else{
                 cell.timeLab.text = "\(terapiaNonFarmacologicaWithTime.getOrarioApprossimato() ?? "nil")-\(terapiaNonFarmacologicaWithTime.getQuandoApprossimato() ?? "nil")"
@@ -344,15 +394,67 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         cell.qtaMedicine.text = ""
                     }
                     cell.ripMedicine.text =  "✅"
+                    cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                    cell.ripMedicine.textColor = .black
                 }else{
                     cell.qtaMedicine.text = ""
                     cell.ripMedicine.text = ""
+                    cell.ripMedicine.font = UIFont.systemFont(ofSize: 16)
+                    cell.ripMedicine.textColor = .black
                 }
+               
             }
             cell.codTer.text = "Cod Ter: \(terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getCodice())"
+
+//            let calendar = Calendar.init(identifier: .gregorian)
             
-//            cell.ripMedicine.isHidden = true
+//            let analogClock = AnalogClockView(view: cell.clockImage)
+//
+//            analogClock.hours = calendar.component(.hour, from: terapiaNonFarmacologicaWithTime.getTime()! )
+//            analogClock.minutes = calendar.component(.minute, from: terapiaNonFarmacologicaWithTime.getTime()! )
+//            cell.clockImage.addSubview(analogClock)
+            
+//             cell.draw(CGRect(origin: CGPoint.zero, size: CGSize(width: 56, height: 56)))
+            
+            let cd = CoreDataController()
+            
+            let currentDate = Date()
+            
+            if indexPath.section == 0{
+                
+                if terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_libero"  && !cd.existsTerapiaNonFarmacologicaWithTimeFromId(id: terapiaNonFarmacologicaWithTime.getId()!) || ((terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_esatto" )  && !cd.existsTerapiaNonFarmacologicaWithTimeFromId(id: terapiaNonFarmacologicaWithTime.getId()!) && (currentDate.addingTimeInterval(-1200) <= terapiaNonFarmacologicaWithTime.getTime()! && terapiaNonFarmacologicaWithTime.getTime()! <= currentDate.addingTimeInterval(1200))) || ((terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_approssimato")  && !cd.existsTerapiaNonFarmacologicaWithTimeFromId(id: terapiaNonFarmacologicaWithTime.getId()!) && (currentDate.addingTimeInterval(-5400) <= terapiaNonFarmacologicaWithTime.getTime()! && terapiaNonFarmacologicaWithTime.getTime()! <= currentDate.addingTimeInterval(5400))){
+                    cell.customView.layer.borderWidth = 2.4
+                
+                        cell.customView.layer.borderColor = UIColor(red: 240.0/255.0, green: 150.0/255.0, blue: 55.0/255.0, alpha: 0.8).cgColor
+                    
+                }
+                else if ((terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_esatto" )  && !cd.existsTerapiaNonFarmacologicaWithTimeFromId(id: terapiaNonFarmacologicaWithTime.getId()!) && (terapiaNonFarmacologicaWithTime.getTime()!.addingTimeInterval(1200) < currentDate)) || ((terapiaNonFarmacologicaWithTime.getTerapiaNonFarmacologica().getTipoOrario() == "orario_approssimato")  && !cd.existsTerapiaNonFarmacologicaWithTimeFromId(id: terapiaNonFarmacologicaWithTime.getId()!) && (terapiaNonFarmacologicaWithTime.getTime()!.addingTimeInterval(5400) < currentDate)){
+                    cell.ripMedicine.text = "⚠︎"
+                    cell.ripMedicine.font = UIFont.boldSystemFont(ofSize: 25)
+                    cell.ripMedicine.textColor = .orange
+                    
+                    cell.customView.layer.borderWidth = 3
+                    
+                    cell.customView.layer.borderColor = UIColor(red: 22.0/255.0, green: 169.0/255.0, blue: 182.0/255.0, alpha: 0.8).cgColor
+                }
+                else{
+                    cell.customView.layer.borderWidth = 3
+                    
+                    cell.customView.layer.borderColor = UIColor(red: 22.0/255.0, green: 169.0/255.0, blue: 182.0/255.0, alpha: 0.8).cgColor
+                }
+                cell.clockImage.isHidden = false
+                cell.timerLabel.isHidden = true
+            }
+            else{
+                cell.customView.layer.borderWidth = 0
+                cell.clockImage.isHidden = false
+                cell.timerLabel.isHidden = true
+            }
+
         }
+        
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.27
         
         return cell
         
@@ -373,7 +475,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
+    // - MARK: Prepare
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         if segue.identifier == "specificTherapySegue"{
             let indexPath = self.tableView.indexPathForSelectedRow!
             if(selectedSegment == 1){
@@ -385,10 +490,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
               
                 vcDestination.terapiaNonFarmacologicaWithTime = self.dictTerNonFarm[indexPath.section]![indexPath.row] ///////
             }
+            
               self.tableView.deselectRow(at: indexPath, animated: true)
         }
       
     }
+    
+    // - MARK: ViewFroHeaderInSection
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
@@ -396,8 +504,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let colorBottom = UIColor(red: 52.0/255.0, green: 147.0/255.0, blue: 196.0/255.0, alpha: 0.7)
         
         headerView.layer.cornerRadius = 8
-        
-//        headerView.layer.backgroundColor = UIColor.yellow.cgColor
     
         headerView.backgroundColor = colorBottom
 
@@ -409,29 +515,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let dateFormatter = DateFormatter.init()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let stringDate = dateFormatter.string(from: date)
-        label.frame = CGRect(x: self.view.frame.midX - 100, y: 7, width: 200, height: 15)
-        label.text = "\(TraslationManager.loadDayName(forDate: date)) \(stringDate)"
+        label.frame = CGRect(x: self.view.frame.midX - 125, y: 7, width: 250, height: 15)
+        if section == 0{
+            label.text = "OGGI \(TraslationManager.loadDayName(forDate: date)) \(stringDate)"
+        }
+        else{
+            label.text = "\(TraslationManager.loadDayName(forDate: date)) \(stringDate)"
+        }
         headerView.addSubview(label)
         
-
 //       self.view.layer.insertSublayer(headerView.layer, at:0)
 
         return headerView
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if (selectedSegment == 1){
-//            self.performSegue(withIdentifier: "specificTherapySegue", sender: tableView)
-//        }
-//        else{
-//            self.performSegue(withIdentifier: "specificTherapySegue", sender: tableView)
-////            let alert = UIAlertController(title: "Attention!", message: "You need to login to proceed", preferredStyle: UIAlertControllerStyle.alert)
-////            let bottoneOk = UIAlertAction ( title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
-////            alert.addAction(bottoneOk)
-////            self.present(alert, animated: true, completion: nil)
-//        }
-//        self.tableView.deselectRow(at: indexPath, animated: true)
-//    }
 
     func setGradientBackground() {
         let colorTop =  UIColor(red: 48.0/255.0, green: 210.0/255.0, blue: 190.0/255.0, alpha: 0.7).cgColor
@@ -439,9 +535,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
      
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [ colorTop, colorBottom]
-        //gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-        //gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-        gradientLayer.locations = [ 0.0, 0.83]
+        gradientLayer.locations = [0.0, 0.83]
         gradientLayer.frame = self.view.bounds
         
         self.view.layer.insertSublayer(gradientLayer, at: 0)

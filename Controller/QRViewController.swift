@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import UserNotifications
 
 class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
@@ -23,16 +24,23 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     @IBAction func pressedBackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
     //@IBOutlet weak var bottomLabel: UILabel!
      @IBOutlet weak var bottomView: UIView!
     
     @IBOutlet weak var topView: UIView!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.bottomView.backgroundColor = .clear
         self.topView.backgroundColor = .clear
+//        found(code: "15186379878233146")
 
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
@@ -124,13 +132,8 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         
         if metadataObjects.count == 0 {
             qrCodeFrameView?.frame = CGRect.zero
-       //     messageLabel.text = "No QR code is detected"
             return
         }
-        
-        
-        // If the found metadata is equal to the QR code metadata (or barcode) then update the status label's text and set the bounds
-        
         
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
@@ -138,21 +141,22 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
         }
-        
-        //dismiss(animated: true)
+    
     }
     
     func found(code: String) {
         
-        if (appDelegate.isInternetAvailable()){
+        let fbManager = FBManager()
         
-        PazientiDAO.existsQRCodeOnDB(qrCode: code){(founded) in
+        if (appDelegate.isInternetAvailable()){
+            
+        fbManager.existsQRCodeOnDB(qrCode: code){(founded) in
             
             if (founded == true){
                 
                 self.appDelegate.qrCode = code
                
-                PazientiDAO.readCodiceFiscaleFromQRCode(qrCode: code){(codiceFiscale) in
+                fbManager.readCodiceFiscaleFromQRCode(qrCode: code){(codiceFiscale) in
                
                     let ac = UIAlertController(title: "Scanning Done", message: "CF paziente:" + codiceFiscale, preferredStyle: .alert)
                     
@@ -163,7 +167,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
                         
                             UserDefaults.standard.set(code, forKey: "qrCode")  //String
                             
-                            //va alla main view dove si trovano tutte le features
+                            //segue to main view
                             self.performSegue(withIdentifier: "mainSegue", sender: nil)
 
                             
@@ -180,7 +184,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
                     ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
                         switch action.style{
                         case .default:
-
+                            
                             self.performSegue(withIdentifier: "mainSegue", sender: nil)
                             
                         case .cancel:
@@ -199,7 +203,6 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
              }
             else{
                 let ac = UIAlertController(title: "Attention", message: "QRCode non valido", preferredStyle: .alert)
-                
                 // add the actions (buttons)
                 ac.addAction(UIAlertAction(title: "Continue", style:.default, handler: { action in
                     switch action.style{
@@ -233,10 +236,10 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         switch UIDevice.current.orientation{
         case .portrait:
             return .portrait
-        case .landscapeLeft:
-            return .landscapeLeft
-        case .landscapeRight:
-            return .landscapeRight
+//        case .landscapeLeft:
+//            return .landscapeLeft
+//        case .landscapeRight:
+//            return .landscapeRight
         default:
             return .portrait
         }

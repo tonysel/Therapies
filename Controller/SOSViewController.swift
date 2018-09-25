@@ -18,7 +18,7 @@ class SOSViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     
     @IBAction func infoButtonPressed(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Info", message: "You can see if the doctor has visualized your SOS through the checkmark ✅.", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Info", message: "Puoi vedere se il medico ha visualizzato il tuo SOS attraverso il checkmark ✅.", preferredStyle: UIAlertControllerStyle.alert)
         let bottoneOk = UIAlertAction ( title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
         alert.addAction(bottoneOk)
         self.present(alert, animated: true, completion: nil)

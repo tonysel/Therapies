@@ -316,7 +316,7 @@ class CoreDataController{
             return dataImages[0].image! as Data
         }
         else{
-            return Data.init()
+            return (UIImagePNGRepresentation(UIImage(named: "genericDrug")!) as Data?)!
         }
     }
     
@@ -470,7 +470,6 @@ class CoreDataController{
         newTerapiaFarmacologica.orariApprossimati = OrarioApprossimato.convert(dictionary: terapiaFarmacologica.getOrarioApprossimato())
         newTerapiaFarmacologica.orarioLibero = Int16(terapiaFarmacologica.getOrarioLibero())
          
-//        //VEDI BENE XKè POTRESTI USARE .append PER AGGIUNGERE NUOVE MEDICINE A QUELLE GIA' ESISTENTI
 //        let setMedicine = NSSet()
 //        
 //        for medicina in terapiaFarmacologica.getMedicinali() {
@@ -559,6 +558,7 @@ class CoreDataController{
 
                 var times = String()
                 var i = 0
+                
                 for time in terapiaFarmCore.orariEsatti! as! Set<OrarioEsatto>{
                     times.append(time.orario!)
                     if i < terapiaFarmCore.orariEsatti!.count - 1{
@@ -607,8 +607,11 @@ class CoreDataController{
                 
                 var times = String()
                 var i = 0
-                for time in terapiaNonFarmCore.orariEsatti!{
-                    times.append(time as! String)
+                // attento vedi bene
+//                print(terapiaNonFarmCore.orariEsatti!)
+                for time in terapiaNonFarmCore.orariEsatti! as! Set<OrarioEsatto>{
+//                    times.append(time as! String)
+                    times.append(time.orario!)
                     if i < terapiaNonFarmCore.orariEsatti!.count - 1{
                         times.append(";")
                     }

@@ -53,7 +53,7 @@ class MedicinaleWithTime{
     }
     
     public func createID(){
-        self.id = "\(String(describing: self.codiceTer))-\(self.medicinale.getCodice())-\(String(describing: self.time))"
+        self.id = "\(self.codiceTer ?? "nil")-\(self.medicinale.getCodice())-\(self.time ?? Date())"
     }
     
 //    public func aggiungiCodiceMedicina(codMed: Int){
